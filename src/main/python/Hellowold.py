@@ -18,6 +18,10 @@ print(isinstance(dNumber, int))#False - 判断数据类型
 print("除法，得到一个浮点数: " + str(2 /4)) #0.5
 print("除法，得到一个整数: " + str(2 // 4)) #0
 
+#数学运算中*代表乘法，**为指数运算
+#>>> 2*4 = 8
+#>>> 2**4 = 16
+
 #---------------------------------String（字符串）
 #单行注释,多行:'''内容'''或"""内容"""， 还有多行字符串 也可以用三引号('''或""")指定
 str1 = '字符串1'; str2 = "字符串2"
@@ -48,6 +52,7 @@ testTuple3 = ()    # 空元组
 testTuple4 = (20,) # 一个元素，需要在元素后添加逗号,不加的话会认为就是整形20 不认成元组
 print (testTuple3)#()
 print (testTuple4)#(20,)
+
 #---------------------------------Sets（集合）- 无序不重复元素的序列
 #可以使用大括号 { } 或者 set() 函数创建集合，注意：创建一个空集合必须用 set() 而不是 { }，因为 { } 是用来创建一个空字典
 testSet1 = {'Tom', 'Jim', 'Mary', 'Tom', 'Jack', 'Rose'} #重复的元素被自动去掉
@@ -122,6 +127,127 @@ from sys import * #模块中的全部函数
 #from sys import argv,path  #导入特定的成员
 print ('\n python 路径为',path)
 help(max) #help() 函数可以打印输出一个函数的文档
+
+num1 = 1;
+num2 = 2;
+#sum = float(num1) + float(num2)
+#print('数字 {0} 和 {1} 相加结果为： {2}'.format(num1, num2, sum))#数字 1 和 2 相加结果为： 3.0
+#print('两数之和为 %.1f' %(float(input('输入第一个数字：'))+float(input('输入第二个数字：'))))#两数之和为 6.0
+
+
+
+
+
+
+
+#---------------------------------平方根
+#--适用于正数
+#num3 = float(input('请输入一个数字： '))#10.2
+#num3_sqrt = num3 ** 0.5
+#print(' %0.3f 的平方根为 %0.3f'%(num3, num3_sqrt))#10.200 的平方根为 3.194
+#--适用于正数和负数
+import cmath
+#num4 = float(input("请输入一个数字: "))#-10.2
+#num4_sqrt = cmath.sqrt(num4)
+#print('{0} 的平方根为 {1:0.3f}+{2:0.3f}j'.format(num4 ,num4_sqrt.real,num4_sqrt.imag))#-10.2 的平方根为 0.000+3.194j
+
+#---------------------------------RegEXPression 正则表达式
+import re
+# .	匹配除 "\n" 之外的任何单个字符。要匹配包括 '\n' 在内的任何字符，请使用象 '[.\n]' 的模式。
+# \d	匹配一个数字字符。等价于 [0-9]。
+# \D	匹配一个非数字字符。等价于 [^0-9]。
+# \s	匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。
+# \S	匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。
+# \w	匹配包括下划线的任何单词字符。等价于'[A-Za-z0-9_]'。
+# \W	匹配任何非单词字符。等价于 '[^A-Za-z0-9_]'。
+
+# re.I	使匹配对大小写不敏感
+# re.L	做本地化识别（locale-aware）匹配
+# re.M	多行匹配，影响 ^ 和 $
+# re.S	使 . 匹配包括换行在内的所有字符
+# re.U	根据Unicode字符集解析字符。这个标志影响 \w, \W, \b, \B.
+# re.X	该标志通过给予你更灵活的格式以便你将正则表达式写得更易于理解。
+
+#从字符串的起始位置匹配一个模式
+#re.match(pattern 正则表达式, string 匹配的字符串, flags=0)
+print(re.match('www', 'www.shawn.com').span())  #(0, 3)
+print(re.match('com', 'www.shawn.com'))         #None
+print(re.match('.*com', 'www.shawn.com'))       #<_sre.SRE_Match object; span=(0, 13), match='www.shawn.com'>
+
+#扫描整个字符串并返回第一个成功的匹配
+print(re.search('www', 'www.shawn.com').span())  # (0, 3)
+print(re.search('com', 'www.shawn.com').span())  # (10, 13)
+print(re.search('XXX', 'www.shawn.com'))  # None
+
+line1 = "Cats are smarter than dogs"
+matchObj1 = re.match( r'(.*) are (.*?) .*', line1, re.M|re.I)
+if matchObj1:
+    print ("matchObj1.group() : ", matchObj1.group())   #Cats are smarter than dogs
+    print ("matchObj1.group(1) : ", matchObj1.group(1)) #Cats
+    print ("matchObj1.group(2) : ", matchObj1.group(2)) #smarter
+else:
+    print ("No match!!")
+
+searchObj1 = re.search( r'(.*) are (.*?) .*', line1, re.M|re.I)
+if searchObj1:
+    print ("searchObj.group() : ", searchObj1.group())  #Cats are smarter than dogs
+    print ("searchObj.group(1) : ", searchObj1.group(1))#Cats
+    print ("searchObj.group(2) : ", searchObj1.group(2))#smarter
+else:
+    print ("Nothing found!!")
+
+#替换字符串中的匹配项
+#re.sub(pattern, repl, string, count=0  模式匹配后替换的最大次数，默认 0 表示替换所有的匹配)
+phone = "2004-959-559 # 这是一个电话号码"
+num5 = re.sub(r'#.*$', "", phone) #删除注释
+print ("电话号码 : ", num5) #2004-959-559
+num6 = re.sub(r'\D', "", phone) # 移除非数字的内容
+print ("电话号码 : ", num6) #2004959559
+
+def double(matched):
+    value = int(matched.group('value'))
+    return str(value * 2) #将匹配的数字乘于 2
+s1 = 'A23G4HFD567'
+print(re.sub('(?P<value>\d+)', double, s1)) #A46G8HFD1134
+
+#编译正则表达式
+pattern = re.compile(r'\d+')                    # 用于匹配至少一个数字
+m = pattern.match('one12twothree34four')        # 查找头部，没有匹配
+print (m) #None
+m = pattern.match('one12twothree34four', 2, 10) # 从'e'的位置开始匹配，没有匹配
+print (m) #None
+m = pattern.match('one12twothree34four', 3, 10) # 从'1'的位置开始匹配，正好匹配
+print (m) #<_sre.SRE_Match object; span=(3, 5), match='12'>
+
+#字符串中找到正则表达式所匹配的所有子串，并返回一个列表，如果没有找到匹配的，则返回空列表
+#findall(string[, pos[, endpos]])
+pattern = re.compile(r'\d+')   # 查找数字
+result1 = pattern.findall('shawn 123 google 456')
+result2 = pattern.findall('s77hawn123google456', 0, 10)
+result3 = pattern.findall('shawngoogle456', 0, 10)
+print(result1)#['123', '456']
+print(result2)#['77', '123']
+print(result3)#[]
+
+#和 findall 类似，在字符串中找到正则表达式所匹配的所有子串，并把它们作为一个迭代器返回。
+#re.finditer(pattern, string, flags=0)
+it = re.finditer(r"\d+","12a32bc43jf3")
+for match in it:
+    print (match.group() )#输出每数字组
+
+#split 方法按照能够匹配的子串将字符串分割后返回列表
+#re.split(pattern, string[, maxsplit=0 分隔次数，maxsplit=1 分隔一次，默认为 0，不限制次数 , flags=0])
+print( re.split('\W+', 'shawn, shawn, shawn.'))#['shawn', 'shawn', 'shawn', '']
+print(re.split('\W+', ' shawn, shawn, shawn.', 1) )#['', 'shawn, shawn, shawn.'] 分隔一次
+print(re.split('a*', 'hello world'))#['hello world'] 找不到匹配的字符串, 不会对其作出分割
+
+#---------------------------------
+
+#---------------------------------
+
+#---------------------------------
+
+#---------------------------------
 
 
 
