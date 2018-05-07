@@ -4,6 +4,42 @@ print ("Hello, Python!") #print 默认输出是换行的，如果要实现不换
 
 #标准数据类型 - Python3 中有六个标准的数据类型：
 #---------------------------------Number（数字）- int(Python3的int,表示为长整型没有Long)、float、bool、complex(复数)
+# 整型(Int) - 通常被称为是整型或整数，是正或负整数，不带小数点。Python3 整型是没有限制大小的，可以当作 Long 类型使用，所以 Python3 没有 Python2 的 Long 类型。
+# 浮点型(float) - 浮点型由整数部分与小数部分组成，浮点型也可以使用科学计数法表示（2.5e2 = 2.5 x 102 = 250）
+# 复数( (complex)) - 复数由实数部分和虚数部分构成，可以用a + bj,或者complex(a,b)表示， 复数的实部a和虚部b都是浮点型。
+# 数学函数
+# abs(x)	返回数字的绝对值，如abs(-10) 返回 10
+# ceil(x)	返回数字的上入整数，如math.ceil(4.1) 返回 5
+# cmp(x, y) - x < y 返回 -1, 如果 x == y 返回 0, 如果 x > y 返回 1。 Python 3 已废弃 。使用 使用 (x>y)-(x<y) 替换。
+# exp(x)	返回e的x次幂(ex),如math.exp(1) 返回2.718281828459045
+# fabs(x)	返回数字的绝对值，如math.fabs(-10) 返回10.0
+# floor(x)	返回数字的下舍整数，如math.floor(4.9)返回 4
+# log(x)	如math.log(math.e)返回1.0,math.log(100,10)返回2.0
+# log10(x)	返回以10为基数的x的对数，如math.log10(100)返回 2.0
+# max(x1, x2,...)	返回给定参数的最大值，参数可以为序列。
+# min(x1, x2,...)	返回给定参数的最小值，参数可以为序列。
+# modf(x)	返回x的整数部分与小数部分，两部分的数值符号与x相同，整数部分以浮点型表示。
+# pow(x, y)	x**y 运算后的值。
+# round(x [,n])	返回浮点数x的四舍五入值，如给出n值，则代表舍入到小数点后的位数。
+# sqrt(x)	返回数字x的平方根。
+
+# 三角函数
+# acos(x)	返回x的反余弦弧度值。
+# asin(x)	返回x的反正弦弧度值。
+# atan(x)	返回x的反正切弧度值。
+# atan2(y, x)	返回给定的 X 及 Y 坐标值的反正切值。
+# cos(x)	返回x的弧度的余弦值。
+# hypot(x, y)	返回欧几里德范数 sqrt(x*x + y*y)。
+# sin(x)	返回的x弧度的正弦值。
+# tan(x)	返回x弧度的正切值。
+# degrees(x)	将弧度转换为角度,如degrees(math.pi/2) ， 返回90.0
+# radians(x)	将角度转换为弧度
+
+# 数学常量
+# pi	数学常量 pi（圆周率，一般以π来表示）
+# e	数学常量 e，e即自然常数（自然常数）。
+
+#数据类型是不允许改变
 aNumber, bNumber, cNumber, dNumber = 20, 5.5, True, 4+3j
 print(type(aNumber), type(bNumber), type(cNumber), type(dNumber))#判断数据类型
 # -- <class 'int'> <class 'float'> <class 'bool'> <class 'complex'>
@@ -15,13 +51,47 @@ print(isinstance(dNumber, int))#False - 判断数据类型
 #区别就是:
     #type()不会认为子类是一种父类类型
     #isinstance()会认为子类是一种父类类型
-print("除法，得到一个浮点数: " + str(2 /4)) #0.5
-print("除法，得到一个整数: " + str(2 // 4)) #0
+print("除法，得到一个浮点数: " + str(2 /4)) #0.5  整数除法中，除法（/）总是返回一个浮点数
+print("除法，得到一个整数: " + str(2 // 4)) #0 想得到整数的结果使用运算符 //
 
 #数学运算中*代表乘法，**为指数运算
 #>>> 2*4 = 8
 #>>> 2**4 = 16
+#>>> 5 ** 2  # 5 的平方 = 25
+#>>> 2 ** 7  # 2的7次方 = 128
 
+varNumber1 = 1
+varNumber2 = 10 #对象将被创建
+del varNumber1, varNumber2 #删除数字对象的引用
+#可以使用十六进制和八进制来代表整数
+number = 0xA0F # 十六进制
+print('十六进制数值:' + str(number))#2575
+number=0o37 # 八进制
+print('八进制:' + str(number))#31
+
+#随机数函数
+import random
+print ("从 range(100) 返回一个随机数 : ",random.choice(range(100)))
+print ("从列表中 [1, 2, 3, 5, 9]) 返回一个随机元素 : ", random.choice([1, 2, 3, 5, 9]))
+print ("从字符串中 'Shawn' 返回一个随机字符 : ", random.choice('Shawn'))
+print (" 从 1-100 中选取一个奇数 randrange(1,100, 2) : ", random.randrange(1, 100, 2))
+print ("从 0-99 选取一个随机数 randrange(100) : ", random.randrange(100))
+print ("[0,1)范围内 random() : ", random.random()) #0.3848253248722716
+#seed() 方法改变随机数生成器的种子，可以在调用其他随机模块函数之前调用此函数
+random.seed()
+print ("使用默认种子生成随机数：", random.random())
+random.seed(10)
+print ("使用整数种子生成随机数：", random.random())
+random.seed("hello",2)
+print ("使用字符串种子生成随机数：", random.random())
+#shuffle() 方法将序列的所有元素随机排序
+list = [20, 16, 10, 5];
+random.shuffle(list)
+print ("随机排序列表 : ",  list)
+random.shuffle(list)
+print ("随机排序列表 : ",  list)
+print ("uniform(5, 10) 的随机浮点数 : ",  random.uniform(5, 10))#8.32548129941273
+print ("uniform(7, 14) 的随机浮点数 : ",  random.uniform(7, 14))#11.50216637642797
 #---------------------------------String（字符串）
 #单行注释,多行:'''内容'''或"""内容"""， 还有多行字符串 也可以用三引号('''或""")指定
 str1 = '字符串1'; str2 = "字符串2"
@@ -237,7 +307,7 @@ for match in it:
 
 #split 方法按照能够匹配的子串将字符串分割后返回列表
 #re.split(pattern, string[, maxsplit=0 分隔次数，maxsplit=1 分隔一次，默认为 0，不限制次数 , flags=0])
-print( re.split('\W+', 'shawn, shawn, shawn.'))#['shawn', 'shawn', 'shawn', '']
+print(re.split('\W+', 'shawn, shawn, shawn.'))#['shawn', 'shawn', 'shawn', '']
 print(re.split('\W+', ' shawn, shawn, shawn.', 1) )#['', 'shawn, shawn, shawn.'] 分隔一次
 print(re.split('a*', 'hello world'))#['hello world'] 找不到匹配的字符串, 不会对其作出分割
 
