@@ -108,6 +108,152 @@ print("str5: " + str5[2:5])            # awn
 print("str5: " + str5[2:])             # awn`s
 print("str5: " + str5 * 2)             # Shawn`sShawn`s
 print("str5: " + str5[1], str5[-2])    #h ` ,和其他语言不同 向一个索引位置赋值，比如str5[0] = 'm'会导致错误
+print("str5: ", str5[:4])              #Shaw
+if( "h" in str5) :#大小写严格
+    print("h 在变量 str5 中")#h 在变量 str5 中
+else :
+    print("h 不在变量 str5 中")
+if( "H" not in str5) :
+    print("H 不在变量 str5 中")#H 不在变量 str5 中
+else :
+    print("H 在变量 str5 中")
+# 字符串格式化符号:
+# %c	 格式化字符及其ASCII码
+# %s	 格式化字符串
+# %d	 格式化整数
+# %u	 格式化无符号整型
+# %o	 格式化无符号八进制数
+# %x	 格式化无符号十六进制数
+# %X	 格式化无符号十六进制数（大写）
+# %f	 格式化浮点数字，可指定小数点后的精度
+# %e	 用科学计数法格式化浮点数
+# %E	 作用同%e，用科学计数法格式化浮点数
+# %g	 %f和%e的简写
+# %G	 %f 和 %E 的简写
+# %p	 用十六进制数格式化变量的地址
+print ("名称 %s 年龄 %d" % ('小明', 10))
+print("abc首字母大写".capitalize())#Abc首字母大写
+print ("指定的宽度 width 居中的字符串，fillchar 为填充的字符，默认为空格:", "shawn".center(8, '*'))#*shawn**
+#str.count 字符串里某个字符出现的次数。可选参数为在字符串搜索的开始与结束位置
+str="www.shawnc.com"
+print ("str.count('w') : ", str.count('w'))#4
+print ("str.count('c', 0, 10) : ", str.count('c',0,10))#1
+#使用 bytes 对象的 decode() 方法来解码给定的 bytes 对象，这个 bytes 对象可以由 str.encode() 来编码返回
+str = "全春林";
+str_utf8 = str.encode("UTF-8")
+str_gbk = str.encode("GBK")
+print("UTF-8 编码：", str_utf8)#b'\xe5\x85\xa8\xe6\x98\xa5\xe6\x9e\x97'
+print("GBK 编码：", str_gbk)#b'\xc8\xab\xb4\xba\xc1\xd6'
+print("UTF-8 解码：", str_utf8.decode('UTF-8','strict'))#全春林
+print("GBK 解码：", str_gbk.decode('GBK','strict'))#全春林
+# 检查字符串是否以 obj 结束，如果beg 或者 end 指定则检查指定的范围内是否以 obj 结束，如果是，返回 True,否则返回 False.
+Str='Shawn aaa!'
+print (Str.endswith('!'))#True
+print (Str.endswith('!',8))#True
+print (Str.endswith('aaa'))#False
+print (Str.endswith('w', 0, 4))#True
+#反之
+# startswith(str, beg=0,end=len(string))
+# 把字符串 string 中的 tab 符号转为空格，tab 符号默认的空格数是 8 。
+str = "this is\tstring"
+print ("原始字符串: " + str)
+print ("替换 \\t 符号: " +  str.expandtabs())
+print ("使用16个空格替换 \\t 符号: " +  str.expandtabs(16))
+# 检测 str 是否包含在字符串中，如果指定范围 beg 和 end ，则检查是否包含在指定范围内，如果包含返回开始的索引值，否则返回-1
+str1 = "Shawn example!"
+print (str1.find("exam"))#6
+print (str1.find("exam", 5))#6
+print (str1.find("exam", 10))#-1
+# 类似于 find()函数，不过是从右边开始查找.
+str1 = "this is really a string example....wow!!!"
+str2 = "is"
+print (str1.rfind(str2))#5
+print (str1.rfind(str2, 0, 10))#5
+print (str1.rfind(str2, 10, 0))#-1
+# 跟find()方法一样，只不过如果str不在字符串中会报一个异常.
+print (str1.index("exam"))#-1
+print (str1.index("exam", 5))
+#print (str1.index("exam", 12))#    print (str1.index("exam", 12)) ValueError: substring not found
+str1 = "this is really a string example....wow!!!"
+str2 = "is"
+print (str1.rindex(str2))#5
+#print (str1.rindex(str2,10))#    print (str1.rindex(str2,10)) ValueError: substring not found
+# 如果字符串至少有一个字符并且所有字符都是字母或数字则返 回 True,否则返回 False
+print ("shawn33 ".isalnum())#False
+print ("shawn33".isalnum())#True
+print ("www.shawn.com".isalnum())#False
+# 如果字符串至少有一个字符并且所有字符都是字母则返回 True, 否则返回 False
+print ("shawn33".isalpha())#False
+print ("shawn".isalpha())#True
+print ("www.shawn.com".isalpha())#False
+# 如果字符串只包含数字则返回 True 否则返回 False..
+print ("123456".isdigit())#True
+print ("www.shawn.com".isdigit())#False
+# 如果字符串中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是小写，则返回 True，否则返回 False
+print ("www.shawn.com".islower())#True
+print ("www.Shawn.com".islower())#False
+# 如果字符串中只包含数字字符，则返回 True，否则返回 False
+print ("shawn33".isnumeric())#False
+print ("23443434".isnumeric())#True
+# 如果字符串中只包含空白，则返回 True，否则返回 False.
+print ("       ".isspace())#True
+print ("   d    ".isspace())#False
+# 如果字符串是标题化的(见 title())则返回 True，否则返回 False,所有的单词拼写首字母是否为大写，且其他字母为小写则返回 True，否则返回 False
+print ("This Is String Example...Wow!!!".istitle())#True
+print ("This is string example....wow!!!".istitle())#False
+# 如果字符串中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是大写，则返回 True，否则返回 False
+print ("THIS IS STRING EXAMPLE....WOW!!!".isupper())#True
+print ("THIS is string example....wow!!!".isupper())#False
+# 以指定字符串作为分隔符，将 seq 中所有的元素(的字符串表示)合并为一个新的字符串
+seq = ("r", "u", "n", "o", "o", "b") # 字符串序列
+print ("-".join( seq ))#r-u-n-o-o-b
+print ("".join( seq ))#runoob
+# 返回字符串长度
+print(len("shawn33"))#7
+# 返回一个原字符串左对齐,并使用 fillchar 填充至长度 width 的新字符串，fillchar 默认为空格。
+str = "shawn example....wow!!!"
+print (str.ljust(50, '*'))#shawn example....wow!!!***************************
+#反之
+# rjust(width,[, fillchar])
+# 转换字符串中所有大写字符为小写.
+print( "shawn EXAMPLE....WOW!!!".lower() )#shawn example....wow!!!
+# 转换字符串中的小写字母为大写
+# upper()
+# 将字符串中大写转换为小写，小写转换为大写
+# swapcase()
+# 截掉字符串左边的空格或指定字符。
+print( "     this is string example....wow!!!     ".lstrip() );#this is string example....wow!!!
+print( "88888888this is string example....wow!!!8888888".lstrip('8') );#this is string example....wow!!!8888888
+#反之
+# rstrip()
+# 创建字符映射的转换表，对于接受两个参数的最简单的调用方式，第一个参数是字符串，表示需要转换的字符，第二个参数也是字符串表示转换的目标。
+str = "this is string example....wow!!!"
+intab = "aeiou"#这个字符串种匹配的字母 换
+outtab = "12345"#这里相同index的字符
+trantab = str.maketrans(intab, outtab)
+print (str.translate(trantab))#th3s 3s str3ng 2x1mpl2....w4w!!!
+# 返回字符串 str 中最大的字母。
+print ("shawn231: " + max("shawn231"))#w
+# 返回字符串 str 中最小的字母。
+print ("shawn231: " + min("shawn231"))#1
+# 把 将字符串中的 str1 替换成 str2,如果 max 指定，则替换不超过 max 次。
+print ("shawn example....wow!!!".replace("example", "eeeee"))#shawn eeeee....wow!!!
+# num=string.count(str)) 以 str 为分隔符截取字符串，如果 num 有指定值，则仅截取 num 个子字符串
+str = "this is string example....wow!!!"
+print (str.split( ))#['this', 'is', 'string', 'example....wow!!!']
+print (str.split('i',1))#['th', 's is string example....wow!!!']
+print (str.split('w'))#['this is string example....', 'o', '!!!']
+# 按照行('\r', '\r\n', \n')分隔，返回一个包含各行作为元素的列表，如果参数 keepends 为 False，不包含换行符，如果为 True，则保留换行符。
+# splitlines([keepends])
+# 返回"标题化"的字符串,就是说所有单词都是以大写开始，其余字母均为小写(见 istitle())
+# title()
+# 返回长度为 width 的字符串，原字符串右对齐，前面填充0
+str = "this is wow!!!"
+print ("str.zfill : ",str.zfill(40))#str.zfill :  00000000000000000000000000this is wow!!!
+print ("str.zfill : ",str.zfill(50))#str.zfill :  000000000000000000000000000000000000this is wow!!!
+# 检查字符串是否只包含十进制字符，如果是返回 true，否则返回 false
+print ("shawn33".isdecimal())#False
+print ("23443434".isdecimal())#True
 
 #---------------------------------Tuple（元组）-列表类似，不同在于 写在小括号(),不能修改
 #虽然tuple的元素不可改变，但它可以包含可变的对象，比如list列表
