@@ -288,6 +288,12 @@ print(testSet2 & testSet3)     # a和b的交集 - {'a', 'c'}
 print(testSet2 ^ testSet3)     # a和b中不同时存在的元素 - {'m', 'b', 'l', 'd', 'z', 'r'}
 
 #---------------------------------List（列表） 可变数据
+print ('List（列表）')
+# len([1, 2, 3])	3	长度
+# [1, 2, 3] + [4, 5, 6]	[1, 2, 3, 4, 5, 6]	组合
+# ['Hi!'] * 4	['Hi!', 'Hi!', 'Hi!', 'Hi!']	重复
+# 3 in [1, 2, 3]	True	元素是否存在于列表中
+# for x in [1, 2, 3]: print(x, end=" ")	1 2 3	迭代
 testList1 = [ 'abcd', 786 , 2.23, 'shawn`s', 70.2]
 testList2 = [123, 'shawn`s']
 print (testList1[0])         # 输出列表第一个元素
@@ -299,9 +305,55 @@ testList1[1] = 999 #list类型可变
 print (testList1) #['abcd', 999, 2.23, 'shawn`s', 70.2]
 testList1[2:3] = [13, 14, 15]
 print (testList1) #['abcd', 999, 13, 14, 15, 'shawn`s', 70.2]
+print (testList1[-2])#shawn`s
+print (testList1[1:])#[999, 13, 14, 15, 'shawn`s', 70.2]
 testList1[2:4] = []
 print (testList1) #['abcd', 999, 15, 'shawn`s', 70.2]
 #List内置方法 append()、pop()
+del testList1[2]
+print (testList1)#['abcd', 999, 'shawn`s', 70.2]
+print (max([2,4,1,23]))#23
+print (min([2,4,1,23]))#1
+#嵌套列表
+print ([testList1, testList2])#[['abcd', 999, 'shawn`s', 70.2], [123, 'shawn`s']]
+# 在列表末尾添加新的对象
+list1 = ['Google', 'Shawn', 'Taobao']
+list1.append('Baidu')
+print ("列表末尾添加新的对象 更新后的列表 : ", list1)#['Google', 'Shawn', 'Taobao', 'Baidu']
+# 统计某个元素在列表中出现的次数
+aList = [123, 'Google', 'Shawn', 'Taobao', 123];
+print ("123 元素个数 : ", aList.count(123))#2
+# 在列表末尾一次性追加另一个序列中的多个值（用新列表扩展原来的列表）
+list1 = ['Google', 'Shawn', 'Taobao']
+list2 = [22,44,11] # 创建 0-4 的列表
+list1.extend(list2)  # 扩展列表
+print ("列表末尾一次性追加另一个序列中的多个值 扩展后的列表：", list1)#['Google', 'Shawn', 'Taobao', 22, 44, 11]
+# 从列表中找出某个值第一个匹配项的索引位置
+# list.index(obj)
+# 将对象插入列表
+list1 = ['Google', 'Shawn', 'Taobao']
+list1.insert(1, 'Baidu')
+print ('对象插入列表 : ', list1)#['Google', 'Baidu', 'Shawn', 'Taobao']
+# 移除列表中的一个元素（默认最后一个元素），并且返回该元素的值
+list1 = ['Google', 'Baidu', 'Taobao']
+print ("pop : ", list1.pop())#Taobao
+print ("移除列表中的一个元素 : ", list1)#['Google', 'Baidu']
+# 移除列表中某个值的第一个匹配项
+list1 = ['Google', 'Baidu', 'Taobao', 'Baidu']
+list1.remove('Baidu')
+print ("移除列表中某个值的第一个匹配项 : ", list1)#['Google', 'Taobao', 'Baidu']
+# 反向列表中元素
+# list.reverse()
+# 对原列表进行排序
+# list.sort([func])
+# 清空列表
+list1 = ['Google', 'Baidu']
+list1.clear()
+print ("列表清空后 : ", list1)#[]
+# 复制列表
+list1 = ['Google', 'Baidu']
+list2 = list1.copy()
+print ("list2 列表: ", list2)#['Google', 'Baidu']
 
 #---------------------------------Dictionary（字典） 可变数据 - 字典当中的元素是通过键来存取,无序的对象集合
 #字典是一种映射类型，字典用"{ }"标识，它是一个无序的键(key) : 值(value)对集合, 键(key)必须是唯一
