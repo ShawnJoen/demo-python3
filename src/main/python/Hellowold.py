@@ -92,6 +92,18 @@ random.shuffle(list)
 print ("随机排序列表 : ",  list)
 print ("uniform(5, 10) 的随机浮点数 : ",  random.uniform(5, 10))#8.32548129941273
 print ("uniform(7, 14) 的随机浮点数 : ",  random.uniform(7, 14))#11.50216637642797
+
+#---------------------------------平方根
+#--适用于正数
+#num3 = float(input('请输入一个数字： '))#10.2
+#num3_sqrt = num3 ** 0.5
+#print(' %0.3f 的平方根为 %0.3f'%(num3, num3_sqrt))#10.200 的平方根为 3.194
+#--适用于正数和负数
+import cmath
+#num4 = float(input("请输入一个数字: "))#-10.2
+#num4_sqrt = cmath.sqrt(num4)
+#print('{0} 的平方根为 {1:0.3f}+{2:0.3f}j'.format(num4 ,num4_sqrt.real,num4_sqrt.imag))#-10.2 的平方根为 0.000+3.194j
+
 #---------------------------------String（字符串）
 #单行注释,多行:'''内容'''或"""内容"""， 还有多行字符串 也可以用三引号('''或""")指定
 str1 = '字符串1'; str2 = "字符串2"
@@ -207,7 +219,7 @@ print ("THIS is string example....wow!!!".isupper())#False
 # 以指定字符串作为分隔符，将 seq 中所有的元素(的字符串表示)合并为一个新的字符串
 seq = ("r", "u", "n", "o", "o", "b") # 字符串序列
 print ("-".join( seq ))#r-u-n-o-o-b
-print ("".join( seq ))#runoob
+print ("".join( seq ))#Shawn
 # 返回字符串长度
 print(len("shawn33"))#7
 # 返回一个原字符串左对齐,并使用 fillchar 填充至长度 width 的新字符串，fillchar 默认为空格。
@@ -257,17 +269,37 @@ print ("23443434".isdecimal())#True
 
 #---------------------------------Tuple（元组）-列表类似，不同在于 写在小括号(),不能修改
 #虽然tuple的元素不可改变，但它可以包含可变的对象，比如list列表
+print ('Tuple（元组）')
+# len((1, 2, 3))	3	计算元素个数
+# (1, 2, 3) + (4, 5, 6)	(1, 2, 3, 4, 5, 6)	连接
+# ('Hi!',) * 4	('Hi!', 'Hi!', 'Hi!', 'Hi!')	复制
+# 3 in (1, 2, 3)	True	元素是否存在
+# for x in (1, 2, 3): print (x,)	1 2 3	迭代
 testTuple1 = ( 'abcd', 786 , 2.23, 'shawn`s', 70.2  )
 testTuple2 = (123, 'shawn`s')
+testTuple3 = "a", "b", "c", "d"
+print (type(testTuple3))#<class 'tuple'>
+print (testTuple3)#('a', 'b', 'c', 'd')
+print (testTuple3[-2])#c
+print (testTuple3[2:])#('c', 'd')
 print (testTuple1[0])          # abcd
 print (testTuple1[1:3])        # (786, 2.23)
 print (testTuple1[2:])         # (2.23, 'shawn`s', 70.2)
 print (testTuple2 * 2)          # (123, 'shawn`s', 123, 'shawn`s')
 print (testTuple1 + testTuple2) # 连接元组 - ('abcd', 786, 2.23, 'shawn`s', 70.2, 123, 'shawn`s')
-testTuple3 = ()    # 空元组
-testTuple4 = (20,) # 一个元素，需要在元素后添加逗号,不加的话会认为就是整形20 不认成元组
-print (testTuple3)#()
-print (testTuple4)#(20,)
+testTuple4 = ()    # 空元组
+testTuple5 = (20,) # 一个元素，需要在元素后添加逗号,不加的话会认为就是整形20 不认成元组
+print (testTuple4)#()
+print (testTuple5)#(20,)
+del testTuple5;#无法指定删除元素不过 可以删除整个元组
+#print (testTuple5)# NameError: name 'testTuple5' is not defined
+testTuple6 = "3", "1", "4", "5"
+print (max(testTuple6))#5
+testTuple7 = 3, 1, 4, 5
+print (min(testTuple7))#1
+list1= ['Google', 'Taobao', 'Shawn', 'Baidu']
+tuple1 = tuple(list1)#将列表转换为元组
+print (tuple1)#('Google', 'Taobao', 'Shawn', 'Baidu')
 
 #---------------------------------Sets（集合）- 无序不重复元素的序列
 #可以使用大括号 { } 或者 set() 函数创建集合，注意：创建一个空集合必须用 set() 而不是 { }，因为 { } 是用来创建一个空字典
@@ -357,6 +389,7 @@ print ("list2 列表: ", list2)#['Google', 'Baidu']
 
 #---------------------------------Dictionary（字典） 可变数据 - 字典当中的元素是通过键来存取,无序的对象集合
 #字典是一种映射类型，字典用"{ }"标识，它是一个无序的键(key) : 值(value)对集合, 键(key)必须是唯一
+print ('Dictionary（字典）')
 dictionary1 = {}
 dictionary1['one'] = "值1"
 dictionary1[2]     = "值2"
@@ -372,9 +405,63 @@ dictionary1 = dict(age=29, gender='male')
 print (dictionary1)#{'age': 29, 'gender': 'male'}
 dictionary3 = {x: x**2 for x in (2, 4, 6)}
 print (dictionary3)#{2: 4, 4: 16, 6: 36}
-#数据类型转换
+del dictionary2['name'] # 删除键 'Name'
+print (dictionary2)#{'code': 2, 'site': 'qcl108.dothome.co.kr'}
+#dictionary2.clear()     # 清空字典
+#print (dictionary2)#{}
+#del dictionary2         # 删除字典
+#print (dictionary2)#NameError: name 'dictionary2' is not defined
+print (	len({'Name': 'Shawn', 'Age': 7, 'Class': 'First'}))#3
+print (	type({'Name': 'Shawn', 'Age': 7, 'Class': 'First'}))#<class 'dict'>
+print ("新复制的字典为 : ",dictionary2.copy())#新复制的字典为 :  {'code': 2, 'site': 'qcl108.dothome.co.kr'}
+#fromkeys()方法
+seq = ('name', 'age', 'sex')
+dict = dict.fromkeys(seq)
+print ("新的字典为 : %s" %  dict)#新的字典为 : {'name': None, 'age': None, 'sex': None}
+dict = dict.fromkeys(seq, 10)
+print ("新的字典为 : %s" %  dict)#新的字典为 : {'name': 10, 'age': 10, 'sex': 10}
+#get() 方法
+dict = {'Name': 'Shawn', 'Age': 27}
+print ("Age 值为 : %s" %  dict.get('Age'))#Age 值为 : 27
+print ("Sex 值为 : %s" %  dict.get('Sex', "NA"))#Sex 值为 : NA 无key的话使用默认值
+#in 操作符
+dict = {'Name': 'Shawn', 'Age': 7}
+if  'Age' in dict:
+    print("键 Age 存在") #Age 存在
+else :
+    print("键 Age 不存在")
+# items() 方法以列表返回可遍历的(键, 值) 元组数组
+dict = {'Name': 'Shawn', 'Age': 7}
+print ("Value : %s" %  dict.items())#Value : dict_items([('Name', 'Shawn'), ('Age', 7)])
+# keys() 方法以列表返回一个字典所有的键
+dict = {'Name': 'Shawn', 'Age': 7}
+print ("字典所有的键为 : %s" %  dict.keys())#dict_keys(['Name', 'Age'])
+#setdefault() 方法和get()方法类似, 如果键不已经存在于字典中，将会添加键并将值设为默认值
+dict = {'Name': 'Shawn', 'Age': 7}
+print ("Age 键的值为 : %s" %  dict.setdefault('Age', None))#Age 键的值为 : 7
+print ("Sex 键的值为 : %s" %  dict.setdefault('Sex', None))#Sex 键的值为 : None
+print ("新字典为：", dict)#新字典为： {'Name': 'Shawn', 'Age': 7, 'Sex': None}
+#update() 方法
+dict = {'Name': 'Shawn', 'Age': 7}
+dict2 = {'Sex': 'female' }
+dict.update(dict2)
+print ("更新字典 dict : ", dict)#更新字典 dict :  {'Name': 'Shawn', 'Age': 7, 'Sex': 'female'}
+# values() 方法以列表返回字典中的所有值
+dict = {'Sex': 'female', 'Age': 7, 'Name': 'Zara'}
+print ("字典所有值为 : ",  dict.values())#dict_values(['female', 7, 'Zara'])
+#pop() 方法删除字典给定键 key 所对应的值，返回值为被删除的值。key值必须给出。 否则，返回default值
+site = {'name': 'Shawn', 'alexa': 10000, 'url': 'www.Shawn.com'}
+pop_obj = site.pop('alexa')
+print (pop_obj)#10000
+print (site)#{'name': 'Shawn', 'url': 'www.Shawn.com'}
+#popitem() 方法随机返回并删除字典中的一对键和值(一般删除末尾对)。
+#如果字典已经为空，却调用了此方法，就报出KeyError异常
+site= {'name': 'Shawn', 'alexa': 10000, 'url': 'www.Shawn.com'}
+pop_obj = site.popitem()
+print(pop_obj)#('url', 'www.Shawn.com')
+print(site)#{'name': 'Shawn', 'alexa': 10000}
 
-#---------------------------------
+#------------------------------------------------------------------
 #Python 中的变量不需要声明。每个变量在使用前都必须赋值
 #两个整型对象 1 和 2 的分配给变量 a 和 b，字符串对象 "shawn" 分配给变量 c
 a, b, c = 1, 2, "shawn"
@@ -401,23 +488,6 @@ num2 = 2;
 #sum = float(num1) + float(num2)
 #print('数字 {0} 和 {1} 相加结果为： {2}'.format(num1, num2, sum))#数字 1 和 2 相加结果为： 3.0
 #print('两数之和为 %.1f' %(float(input('输入第一个数字：'))+float(input('输入第二个数字：'))))#两数之和为 6.0
-
-
-
-
-
-
-
-#---------------------------------平方根
-#--适用于正数
-#num3 = float(input('请输入一个数字： '))#10.2
-#num3_sqrt = num3 ** 0.5
-#print(' %0.3f 的平方根为 %0.3f'%(num3, num3_sqrt))#10.200 的平方根为 3.194
-#--适用于正数和负数
-import cmath
-#num4 = float(input("请输入一个数字: "))#-10.2
-#num4_sqrt = cmath.sqrt(num4)
-#print('{0} 的平方根为 {1:0.3f}+{2:0.3f}j'.format(num4 ,num4_sqrt.real,num4_sqrt.imag))#-10.2 的平方根为 0.000+3.194j
 
 #---------------------------------RegEXPression 正则表达式
 import re
