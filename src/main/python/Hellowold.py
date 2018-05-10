@@ -465,12 +465,12 @@ print(site)#{'name': 'Shawn', 'alexa': 10000}
 #Python 中的变量不需要声明。每个变量在使用前都必须赋值
 #两个整型对象 1 和 2 的分配给变量 a 和 b，字符串对象 "shawn" 分配给变量 c
 a, b, c = 1, 2, "shawn"
-print("a:" + str(a))#1
-print("b:" + str(b))#2
-print("c:" + c)#shawn
+#print("a:" + str(a))#1
+#print("b:" + str(b))#2
+#print("c:" + c)#shawn
 aa = bb = 1 #三个变量被分配到相同的内存空间上
-print("aa:" + str(aa))#1
-print("bb:" + str(bb))#1
+#print("aa:" + str(aa))#1
+#print("bb:" + str(bb))#1
 del aa, c
 #print("c:" + c)#NameError: name 'c' is not defined 删除后调用此变量会出Error中断程序解释
 
@@ -546,7 +546,7 @@ def double(matched):
     value = int(matched.group('value'))
     return str(value * 2) #将匹配的数字乘于 2
 s1 = 'A23G4HFD567'
-print(re.sub('(?P<value>\d+)', double, s1)) #A46G8HFD1134
+#print(re.sub('(?P<value>\d+)', double, s1)) #A46G8HFD1134
 
 #编译正则表达式
 pattern = re.compile(r'\d+')                    # 用于匹配至少一个数字
@@ -579,13 +579,97 @@ print(re.split('\W+', 'shawn, shawn, shawn.'))#['shawn', 'shawn', 'shawn', '']
 print(re.split('\W+', ' shawn, shawn, shawn.', 1) )#['', 'shawn, shawn, shawn.'] 分隔一次
 print(re.split('a*', 'hello world'))#['hello world'] 找不到匹配的字符串, 不会对其作出分割
 
+#---------------------------------if, while, 迭代器
+var1 = 100
+if var1:#true
+    print ("1 - if 表达式条件为 true")#
+    print (var1)#100
+var2 = 0
+if var2:#false
+    print ("2 - if 表达式条件为 true")
+    print (var2)
+#while 循环
+n = 100
+sum = 0
+counter = 1
+while counter <= n:
+    sum = sum + counter
+    counter += 1
+#flag = 1
+#while (flag): print ('-shawn-')
+#while 循环使用 else 语句
+count = 0
+while count < 5:
+    print (count, " 小于 5")
+    count = count + 1
+else:
+    print (count, " 大于或等于 5")
+#for 语句
+languages = ["C", "C++", "Perl", "Python"]
+for x in languages:
+    print (x)
+#遍历数字序列
+for i in range(5):
+    print(i)
+#range指定区间的值
+for i in range(5,9) :
+    print(i)
+#指定数字开始并指定不同的增量
+for i in range(0, 10, 3) :
+    print(i, end=",")#0,3,6,9,
+for i in range(-10, -100, -30) :
+    print(i, end=",")#-10,-40,-70,
+a = ['Google', 'Baidu', 'Shawn', 'Taobao', 'QQ']
+for i in range(len(a)):
+    print(i, a[i])#
+# 1 Baidu
+# 2 Shawn
+# 3 Taobao
+# 4 QQ
+# pass是空语句，是为了保持程序结构的完整性。
+# pass 不做任何事情，一般用做占位语句
+#while True:
+#    pass  # 等待键盘中断 (Ctrl+C)
+for letter in 'Shawn':
+    if letter == 'a':
+        pass
+        print ('执行 pass 块')
+    print ('当前字母 :', letter)
+#迭代器 - 迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退
+list=[1,2,3,4]
+it = iter(list)    # 创建迭代器对象
+for x in it:
+    print (x, end=" ")#1 2 3 4
+print()
+# list=[1,2,3,4]
+# it = iter(list)    # 创建迭代器对象
+# while True:
+#     try:
+#         print (next(it), end=",")#1,2,3,4,
+#     except StopIteration:
+#         sys.exit()
+# yield 的函数被称为生成器（generator）
+# 生成器是一个返回迭代器的函数
+# 在调用生成器运行的过程中，每次遇到 yield 时函数会暂停并保存当前所有的运行信息，
+# 返回 yield 的值, 并在下一次执行 next() 方法时从当前位置继续运行
+# def fibonacci(n): # 生成器函数 - 斐波那契
+#     a, b, counter = 0, 1, 0
+#     while True:
+#         if (counter > n):
+#             return
+#         yield a
+#         a, b = b, a + b
+#         counter += 1
+# f = fibonacci(10) # f 是一个迭代器，由生成器返回生成
+# while True:
+#     try:
+#         print (next(f), end=" ")#0 1 1 2 3 5 8 13 21 34 55
+#     except StopIteration:
+#         sys.exit()
 #---------------------------------
 
 #---------------------------------
 
-#---------------------------------
-
-#---------------------------------
 
 
 
