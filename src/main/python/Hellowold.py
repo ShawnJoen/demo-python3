@@ -666,8 +666,96 @@ print()
 #         print (next(f), end=" ")#0 1 1 2 3 5 8 13 21 34 55
 #     except StopIteration:
 #         sys.exit()
-#---------------------------------
-
+#---------------------------------def 函数
+#可更改(mutable)与不可更改(immutable)对象
+#strings, tuples, 和 numbers 是不可更改的对象，而 list,dict 等则是可以修改的对象
+#传递参数是没有类型 仅仅是一个对象的引用（一个指针）
+#不可变类型 - 类似 c++ 的值传递 - 值传递的只是a的值fun（a）内部修改 a 的值，只是修改另一个复制的对象，不会影响 a 本身
+#可变类型：类似 c++ 的引用传递 - 如列表，字典。如 fun（la），则是将 la 真正的传过去，修改后fun外部的la也会受影响
+#传递参数 严格讲应该是 传不可变对象和传可变对象
+#变量作用域
+# L （Local） 局部作用域
+# E （Enclosing） 闭包函数外的函数中
+# G （Global） 全局作用域
+# B （Built-in） 内建作用域
+# 以 L –> E –> G –>B 的规则查找，即：在局部找不到，便会去局部外的局部找（例如闭包），
+#     再找不到就会去全局找，再者去内建中找
+#只有模块（module），类（class）以及函数（def、lambda）才会引入新的作用域，
+        # 其它的代码块（如 if/elif/else/、try/except、for/while等）是不会引入新的作用域
+def area(width, height):
+    return width * height
+def print_welcome(name):
+    print("Welcome", name)
+a =  area(2,4);
+print(a)#8
+print_welcome("Shawn")#Welcome Shawn
+#传不可变对象实例
+def ChangeInt( a ):
+    a = 10
+b = 2
+ChangeInt(b)
+print( b ) # 结果是 2
+#传可变对象实例
+def changeme( mylist ):
+    mylist.append([1,2,3,4])
+    print ("函数内取值: ", mylist)
+    return
+# 调用changeme函数
+mylist = [10,20,30]
+changeme( mylist )#[10, 20, 30, [1, 2, 3, 4]]
+print ("函数外取值: ", mylist)#[10, 20, 30, [1, 2, 3, 4]]
+#关键字参数 - 允许函数调用时参数的顺序与声明时不一致
+def printinfo( name, age ):
+    "打印任何传入的字符串"
+    print ("名字: ", name)#shawn
+    print ("年龄: ", age)#33
+    return
+#调用printinfo函数
+printinfo( age=33, name="shawn" )
+#默认参数
+def printinfo( name, age = 33 ):
+    print ("名字: ", name)
+    print ("年龄: ", age)
+    return
+printinfo( name="shawn" )
+#不定长参数 - 和上述2种参数不同，声明时不会命名
+def printinfo( arg1, *vartuple ):
+    print ("输出: ")
+    print (arg1)
+    for var in vartuple:
+        print (var,end=", ")
+    return
+# 调用printinfo 函数
+printinfo( 10 )#10
+printinfo( 70, 60, 50 )#70  60, 50,
+print ()
+#lambda 匿名函数
+sum = lambda arg1, arg2: arg1 + arg2
+print ("相加后的值为 : ", sum( 10, 20 ))#相加后的值为 :  30
+#return语句 - 退出函数，选择性地向调用方返回一个表达式。不带参数值的return语句返回None
+#global 和 nonlocal关键字 - 当内部作用域想修改外部作用域的变量时，就要用到global和nonlocal
+num = 1
+def fun1():
+    global num  # 需要使用 global 关键字声明
+    print(num)#1
+    num = 123#在这里修改了全局的num了
+    print(num)#123
+fun1()
+print(num)#123
+def outer():
+    num = 10
+    def inner():
+        nonlocal num   # nonlocal关键字声明
+        num = 100
+        print(num)
+    inner()
+    print(num)#100
+outer()#100
+# a = 10
+# def test():
+#     a = a + 1 #这样不使用关键字global,nonlocal 会报错#
+#     print(a)#UnboundLocalError: local variable 'a' referenced before assignment
+# test()
 #---------------------------------
 
 
