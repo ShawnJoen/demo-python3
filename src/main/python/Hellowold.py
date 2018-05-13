@@ -300,7 +300,13 @@ print (min(testTuple7))#1
 list1= ['Google', 'Taobao', 'Shawn', 'Baidu']
 tuple1 = tuple(list1)#将列表转换为元组
 print (tuple1)#('Google', 'Taobao', 'Shawn', 'Baidu')
+t = 12345, 54321, 'hello!'
+u = t, (1, 2, 3, 4, 5)
+print (u)#((12345, 54321, 'hello!'), (1, 2, 3, 4, 5))
 
+
+
+print ('-----------Tuple End----------')
 #---------------------------------Sets（集合）- 无序不重复元素的序列
 #可以使用大括号 { } 或者 set() 函数创建集合，注意：创建一个空集合必须用 set() 而不是 { }，因为 { } 是用来创建一个空字典
 testSet1 = {'Tom', 'Jim', 'Mary', 'Tom', 'Jack', 'Rose'} #重复的元素被自动去掉
@@ -318,7 +324,16 @@ print(testSet2 - testSet3)     # a和b的差集 - {'d', 'r', 'b'}
 print(testSet2 | testSet3)     # a和b的并集 - {'b', 'l', 'd', 'r', 'a', 'm', 'c', 'z'}
 print(testSet2 & testSet3)     # a和b的交集 - {'a', 'c'}
 print(testSet2 ^ testSet3)     # a和b中不同时存在的元素 - {'m', 'b', 'l', 'd', 'z', 'r'}
+print (testSet2 - testSet3) #在 testSet2 中的字母，但不在 testSet3 中
+#{'b', 'r', 'd'}
+print (testSet2 | testSet3)#在 testSet2 或 testSet3 中的字母
+#{'l', 'm', 'r', 'd', 'z', 'a', 'c', 'b'}
+#a & b #在 a 和 b 中都有的字母
+#a ^ b  #在 a 或 b 中的字母，但不同时在 a 和 b 中
+print ({x for x in 'abracadabra' if x not in 'abc'}) #{'d', 'r'}
 
+
+print ('-----------Sets End----------')
 #---------------------------------List（列表） 可变数据
 print ('List（列表）')
 # len([1, 2, 3])	3	长度
@@ -343,6 +358,7 @@ testList1[2:4] = []
 print (testList1) #['abcd', 999, 15, 'shawn`s', 70.2]
 #List内置方法 append()、pop()
 del testList1[2]
+#del testList1[2:3]
 print (testList1)#['abcd', 999, 'shawn`s', 70.2]
 print (max([2,4,1,23]))#23
 print (min([2,4,1,23]))#1
@@ -387,6 +403,40 @@ list1 = ['Google', 'Baidu']
 list2 = list1.copy()
 print ("list2 列表: ", list2)#['Google', 'Baidu']
 
+#列表当做堆栈使用 - 最先进入的元素最后一个被释放（后进先出）
+stack = [3, 4, 5]
+stack.append(6)
+stack.pop()
+#列表当作队列使用 - 第一加入的元素，第一个取出来；但是拿列表用作这样的目的效率不高
+# queue = deque(["Eric", "John", "Michael"])
+# queue.append("Terry")
+# queue.popleft()
+#列表推导式
+vec = [2, 4, 6]
+#[3*x for x in vec] # [6, 12, 18]
+#[[x, x**2] for x in vec] # [[2, 4], [4, 16], [6, 36]]
+freshfruit = ['  banana', '  loganberry ', 'passion fruit  ']
+#[weapon.strip() for weapon in freshfruit] # ['banana', 'loganberry', 'passion fruit']
+#[3*x for x in vec if x > 3] # [12, 18]
+#[3*x for x in vec if x < 2] # []
+vec1 = [2, 4, 6]
+vec2 = [4, 3, -9]
+print ([x*y for x in vec1 for y in vec2]) # [8, 6, -18, 16, 12, -36, 24, 18, -54]
+print ([vec1[i]*vec2[i] for i in range(len(vec1))]) # [8, 12, -54]
+#嵌套列表解析
+matrix = [
+ [1, 2, 3, 4],
+ [5, 6, 7, 8],
+[9, 10, 11, 12],
+]
+print (matrix)#[[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
+print ([[row[i] for row in matrix] for i in range(4)])#[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
+transposed = []
+for i in range(4):
+    transposed.append([row[i] for row in matrix])
+print (transposed)#[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]] 等同上面的
+
+print ('-----------List End----------')
 #---------------------------------Dictionary（字典） 可变数据 - 字典当中的元素是通过键来存取,无序的对象集合
 #字典是一种映射类型，字典用"{ }"标识，它是一个无序的键(key) : 值(value)对集合, 键(key)必须是唯一
 print ('Dictionary（字典）')
@@ -461,6 +511,39 @@ pop_obj = site.popitem()
 print(pop_obj)#('url', 'www.Shawn.com')
 print(site)#{'name': 'Shawn', 'alexa': 10000}
 
+knights = {'gallahad': 'the pure', 'robin': 'the brave'}
+for k, v in knights.items():
+    print(k, v)
+#gallahad the pure
+#robin the brave
+# 序列中遍历时，索引位置和对应值可以使用 enumerate()
+for i, v in enumerate(['tic', 'tac', 'toe']):
+    print(i, v)
+#0 tic
+#1 tac
+#2 toe
+# 同时遍历两个或更多的序列，可以使用 zip()
+questions = ['name', 'quest', 'favorite color']
+answers = ['lancelot', 'the holy grail', 'blue']
+for q, a in zip(questions, answers):
+    print('What is your {0}?  It is {1}.'.format(q, a))
+#What is your name?  It is lancelot.
+#What is your quest?  It is the holy grail.
+#What is your favorite color?  It is blue.
+# 反向遍历一个序列，首先指定这个序列，然后调用 reversed()
+for i in reversed(range(1, 10, 2)):
+    print(i)
+# 9
+# 7
+# 5
+# 3
+# 1
+#按顺序遍历一个序列，使用 sorted() 函数返回一个已排序的序列，并不修改原值
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+for f in sorted(set(basket)):
+    print(f,end=",")#apple,banana,orange,pear,
+print()
+print ('-----------Dictionary End----------')
 #------------------------------------------------------------------
 #Python 中的变量不需要声明。每个变量在使用前都必须赋值
 #两个整型对象 1 和 2 的分配给变量 a 和 b，字符串对象 "shawn" 分配给变量 c
@@ -759,6 +842,6 @@ outer()#100
 #---------------------------------
 
 
-
+#---------------------------------
 
 
