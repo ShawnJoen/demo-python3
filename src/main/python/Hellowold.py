@@ -2,6 +2,53 @@
 
 print ("Hello, Python!") #print 默认输出是换行的，如果要实现不换行需要在变量末尾加上 end=""
 
+#------------------------------------------------------------------
+#Python 中的变量不需要声明。每个变量在使用前都必须赋值
+#两个整型对象 1 和 2 的分配给变量 a 和 b，字符串对象 "shawn" 分配给变量 c
+a, b, c = 1, 2, "shawn"
+#print("a:" + str(a))#1
+#print("b:" + str(b))#2
+#print("c:" + c)#shawn
+aa = bb = 1 #三个变量被分配到相同的内存空间上
+#print("aa:" + str(aa))#1
+#print("bb:" + str(bb))#1
+del aa, c
+#print("c:" + c)#NameError: name 'c' is not defined 删除后调用此变量会出Error中断程序解释
+
+#str6 = input("请输入: ") #等待用户输入
+#print("输入的内容为: " + str6)
+import sys #导入整个模块
+print ('\n python 路径为',sys.path)
+from sys import * #模块中的全部函数
+#from sys import argv,path  #导入特定的成员
+print ('\n python 路径为',path)
+help(max) #help() 函数可以打印输出一个函数的文档
+
+num1 = 1;
+num2 = 2;
+#sum = float(num1) + float(num2)
+#print('数字 {0} 和 {1} 相加结果为： {2}'.format(num1, num2, sum))#数字 1 和 2 相加结果为： 3.0
+#print('两数之和为 %.1f' %(float(input('输入第一个数字：'))+float(input('输入第二个数字：'))))#两数之和为 6.0
+
+#深入模块 - 模块除了方法定义，还可以包括可执行的代码。这些代码一般用来初始化这个模块。
+    # 这些代码只有在第一次被导入时才会被执行
+#__name__属性 一个模块被另一个程序第一次引入时，其主程序将运行。如果我们想在模块被引入时，
+    # 模块中的某一程序块不执行，我们可以用__name__属性来使该程序块仅在该模块自身运行时执行
+    # 每个模块都有一个__name__属性，当其值是'__main__'时，表明该模块自身在运行，否则是被引入
+# Filename: using_name.py
+if __name__ == '__main__':
+    print('程序自身在运行')
+else:
+    print('我来自另一模块')
+#python using_name.py - 程序自身在运行
+#import using_name - 我来自另一模块
+#dir() # 得到一个当前模块中定义的属性列表
+#__all__ = ["echo", "surround", "reverse"] 这表示当你使用from sound.effects import *这种用法时，你只会导入包里面这三个子模块
+
+
+
+
+
 #标准数据类型 - Python3 中有六个标准的数据类型：
 #---------------------------------Number（数字）- int(Python3的int,表示为长整型没有Long)、float、bool、complex(复数)
 # 整型(Int) - 通常被称为是整型或整数，是正或负整数，不带小数点。Python3 整型是没有限制大小的，可以当作 Long 类型使用，所以 Python3 没有 Python2 的 Long 类型。
@@ -147,30 +194,30 @@ print ("名称 %s 年龄 %d" % ('小明', 10))
 print("abc首字母大写".capitalize())#Abc首字母大写
 print ("指定的宽度 width 居中的字符串，fillchar 为填充的字符，默认为空格:", "shawn".center(8, '*'))#*shawn**
 #str.count 字符串里某个字符出现的次数。可选参数为在字符串搜索的开始与结束位置
-str="www.shawnc.com"
-print ("str.count('w') : ", str.count('w'))#4
-print ("str.count('c', 0, 10) : ", str.count('c',0,10))#1
+str1="www.shawnc.com"
+print ("str1.count('w') : ", str1.count('w'))#4
+print ("str1.count('c', 0, 10) : ", str1.count('c',0,10))#1
 #使用 bytes 对象的 decode() 方法来解码给定的 bytes 对象，这个 bytes 对象可以由 str.encode() 来编码返回
-str = "全春林";
-str_utf8 = str.encode("UTF-8")
-str_gbk = str.encode("GBK")
+str1 = "全春林";
+str_utf8 = str1.encode("UTF-8")
+str_gbk = str1.encode("GBK")
 print("UTF-8 编码：", str_utf8)#b'\xe5\x85\xa8\xe6\x98\xa5\xe6\x9e\x97'
 print("GBK 编码：", str_gbk)#b'\xc8\xab\xb4\xba\xc1\xd6'
 print("UTF-8 解码：", str_utf8.decode('UTF-8','strict'))#全春林
 print("GBK 解码：", str_gbk.decode('GBK','strict'))#全春林
 # 检查字符串是否以 obj 结束，如果beg 或者 end 指定则检查指定的范围内是否以 obj 结束，如果是，返回 True,否则返回 False.
-Str='Shawn aaa!'
-print (Str.endswith('!'))#True
-print (Str.endswith('!',8))#True
-print (Str.endswith('aaa'))#False
-print (Str.endswith('w', 0, 4))#True
+str1='Shawn aaa!'
+print (str1.endswith('!'))#True
+print (str1.endswith('!',8))#True
+print (str1.endswith('aaa'))#False
+print (str1.endswith('w', 0, 4))#True
 #反之
 # startswith(str, beg=0,end=len(string))
 # 把字符串 string 中的 tab 符号转为空格，tab 符号默认的空格数是 8 。
-str = "this is\tstring"
-print ("原始字符串: " + str)
-print ("替换 \\t 符号: " +  str.expandtabs())
-print ("使用16个空格替换 \\t 符号: " +  str.expandtabs(16))
+str1 = "this is\tstring"
+print ("原始字符串: " + str1)
+print ("替换 \\t 符号: " +  str1.expandtabs())
+print ("使用16个空格替换 \\t 符号: " +  str1.expandtabs(16))
 # 检测 str 是否包含在字符串中，如果指定范围 beg 和 end ，则检查是否包含在指定范围内，如果包含返回开始的索引值，否则返回-1
 str1 = "Shawn example!"
 print (str1.find("exam"))#6
@@ -223,8 +270,8 @@ print ("".join( seq ))#Shawn
 # 返回字符串长度
 print(len("shawn33"))#7
 # 返回一个原字符串左对齐,并使用 fillchar 填充至长度 width 的新字符串，fillchar 默认为空格。
-str = "shawn example....wow!!!"
-print (str.ljust(50, '*'))#shawn example....wow!!!***************************
+str1 = "shawn example....wow!!!"
+print (str1.ljust(50, '*'))#shawn example....wow!!!***************************
 #反之
 # rjust(width,[, fillchar])
 # 转换字符串中所有大写字符为小写.
@@ -239,11 +286,11 @@ print( "88888888this is string example....wow!!!8888888".lstrip('8') );#this is 
 #反之
 # rstrip()
 # 创建字符映射的转换表，对于接受两个参数的最简单的调用方式，第一个参数是字符串，表示需要转换的字符，第二个参数也是字符串表示转换的目标。
-str = "this is string example....wow!!!"
+str1 = "this is string example....wow!!!"
 intab = "aeiou"#这个字符串种匹配的字母 换
 outtab = "12345"#这里相同index的字符
-trantab = str.maketrans(intab, outtab)
-print (str.translate(trantab))#th3s 3s str3ng 2x1mpl2....w4w!!!
+trantab = str1.maketrans(intab, outtab)
+print (str1.translate(trantab))#th3s 3s str3ng 2x1mpl2....w4w!!!
 # 返回字符串 str 中最大的字母。
 print ("shawn231: " + max("shawn231"))#w
 # 返回字符串 str 中最小的字母。
@@ -251,21 +298,25 @@ print ("shawn231: " + min("shawn231"))#1
 # 把 将字符串中的 str1 替换成 str2,如果 max 指定，则替换不超过 max 次。
 print ("shawn example....wow!!!".replace("example", "eeeee"))#shawn eeeee....wow!!!
 # num=string.count(str)) 以 str 为分隔符截取字符串，如果 num 有指定值，则仅截取 num 个子字符串
-str = "this is string example....wow!!!"
-print (str.split( ))#['this', 'is', 'string', 'example....wow!!!']
-print (str.split('i',1))#['th', 's is string example....wow!!!']
-print (str.split('w'))#['this is string example....', 'o', '!!!']
+str1 = "this is string example....wow!!!"
+print (str1.split( ))#['this', 'is', 'string', 'example....wow!!!']
+print (str1.split('i',1))#['th', 's is string example....wow!!!']
+print (str1.split('w'))#['this is string example....', 'o', '!!!']
 # 按照行('\r', '\r\n', \n')分隔，返回一个包含各行作为元素的列表，如果参数 keepends 为 False，不包含换行符，如果为 True，则保留换行符。
 # splitlines([keepends])
 # 返回"标题化"的字符串,就是说所有单词都是以大写开始，其余字母均为小写(见 istitle())
 # title()
 # 返回长度为 width 的字符串，原字符串右对齐，前面填充0
-str = "this is wow!!!"
-print ("str.zfill : ",str.zfill(40))#str.zfill :  00000000000000000000000000this is wow!!!
-print ("str.zfill : ",str.zfill(50))#str.zfill :  000000000000000000000000000000000000this is wow!!!
+str1 = "this is wow!!!"
+print ("str.zfill : ",str1.zfill(40))#str.zfill :  00000000000000000000000000this is wow!!!
+print ("str.zfill : ",str1.zfill(50))#str.zfill :  000000000000000000000000000000000000this is wow!!!
+print ('12'.zfill(5)) #00012
+print ('-3.14'.zfill(7))#-003.14
 # 检查字符串是否只包含十进制字符，如果是返回 true，否则返回 false
 print ("shawn33".isdecimal())#False
 print ("23443434".isdecimal())#True
+
+
 
 #---------------------------------Tuple（元组）-列表类似，不同在于 写在小括号(),不能修改
 #虽然tuple的元素不可改变，但它可以包含可变的对象，比如list列表
@@ -544,34 +595,6 @@ for f in sorted(set(basket)):
     print(f,end=",")#apple,banana,orange,pear,
 print()
 print ('-----------Dictionary End----------')
-#------------------------------------------------------------------
-#Python 中的变量不需要声明。每个变量在使用前都必须赋值
-#两个整型对象 1 和 2 的分配给变量 a 和 b，字符串对象 "shawn" 分配给变量 c
-a, b, c = 1, 2, "shawn"
-#print("a:" + str(a))#1
-#print("b:" + str(b))#2
-#print("c:" + c)#shawn
-aa = bb = 1 #三个变量被分配到相同的内存空间上
-#print("aa:" + str(aa))#1
-#print("bb:" + str(bb))#1
-del aa, c
-#print("c:" + c)#NameError: name 'c' is not defined 删除后调用此变量会出Error中断程序解释
-
-#str6 = input("请输入: ") #等待用户输入
-#print("输入的内容为: " + str6)
-import sys #导入整个模块
-print ('\n python 路径为',sys.path)
-from sys import * #模块中的全部函数
-#from sys import argv,path  #导入特定的成员
-print ('\n python 路径为',path)
-help(max) #help() 函数可以打印输出一个函数的文档
-
-num1 = 1;
-num2 = 2;
-#sum = float(num1) + float(num2)
-#print('数字 {0} 和 {1} 相加结果为： {2}'.format(num1, num2, sum))#数字 1 和 2 相加结果为： 3.0
-#print('两数之和为 %.1f' %(float(input('输入第一个数字：'))+float(input('输入第二个数字：'))))#两数之和为 6.0
-
 #---------------------------------RegEXPression 正则表达式
 import re
 # .	匹配除 "\n" 之外的任何单个字符。要匹配包括 '\n' 在内的任何字符，请使用象 '[.\n]' 的模式。
@@ -839,8 +862,74 @@ outer()#100
 #     a = a + 1 #这样不使用关键字global,nonlocal 会报错#
 #     print(a)#UnboundLocalError: local variable 'a' referenced before assignment
 # test()
-#---------------------------------
-
+#---------------------------------输入和输出
+print (str('Hello Shawn'))#Hello Shawn - 用户易读的表达形式
+print (repr('Hello Shawn'))#'Hello Shawn' - 解释器易读的表达形式
+print (str(1/7))#0.14285714285714285
+#读和写文件 - open(filename, mode)
+# r	以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。
+# rb	以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。
+# r+	打开一个文件用于读写。文件指针将会放在文件的开头。
+# rb+	以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。
+# w	打开一个文件只用于写入。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。
+# wb	以二进制格式打开一个文件只用于写入。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。
+# w+	打开一个文件用于读写。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。
+# wb+	以二进制格式打开一个文件用于读写。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。
+# a	打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。
+# ab	以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。
+# a+	打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。
+# ab+	以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。
+f = open("./foo.txt", "w")
+print (f.write( "Shawn\n123" ))#6 - 返回写入的字符数
+f.close()# 关闭打开的文件
+f = open("./foo.txt", "r")
+str = f.read()
+print(str)#Shawn
+f.close()
+f = open("./foo.txt", "r")
+str = f.readline()#f.readline() 会从文件中读取单独的一行。换行符为 '\n'。f.readline() 如果返回一个空字符串, 说明已经已经读取到最后一行
+print(str)#Shawn
+f.close()
+f = open("./foo.txt", "r")#f.readlines() 将返回该文件中包含的所有行
+str = f.readlines()#如果设置可选参数 sizehint, 则读取指定长度的字节, 并且将这些字节按行分割
+print(str)#['Shawn\n', '123']
+f.close()
+f = open("./foo.txt", "r")
+for line in f:
+    print(line, end='')#Shawn
+f.close()
+print ()
+#f.tell() 返回文件对象当前所处的位置, 它是从文件开头开始算起的字节数
+# f.seek() 如果要改变文件当前的位置, 可以使用 f.seek(offset, from_what) 函数。
+# from_what 的值, 如果是 0 表示开头, 如果是 1 表示当前位置, 2 表示文件的结尾，例如：
+# seek(x,0) ： 从起始位置即文件首行首字符开始移动 x 个字符
+# seek(x,1) ： 表示从当前位置往后移动x个字符
+# seek(-x,2)：表示从文件的结尾往前移动x个字符
+#pickle 模块 - 实现了基本的数据序列和反序列化
+import pickle
+# 使用pickle模块将数据对象保存到文件
+data1 = {'a': [1, 2.0, 3, 4+6j],
+         'b': ('string', u'Unicode string'),
+         'c': None}
+selfref_list = [1, 2, 3]
+selfref_list.append(selfref_list)
+output = open('data.pkl', 'wb')
+#pickle.dump(obj, file, [,protocol])
+# Pickle dictionary using protocol 0.
+pickle.dump(data1, output)#从文件中创建上一次程序保存的对象
+# Pickle the list using the highest protocol available.
+pickle.dump(selfref_list, output, -1)
+output.close()
+import pprint
+#使用pickle模块从文件中重构python对象
+pkl_file = open('data.pkl', 'rb')
+data1 = pickle.load(pkl_file)#pickle 这个对象, 就能对 file 以读取的形式
+pprint.pprint(data1)
+data2 = pickle.load(pkl_file)#pickle 这个对象, 就能对 file 以读取的形式
+pprint.pprint(data2)#
+pkl_file.close()
+#{'a': [1, 2.0, 3, (4+6j)], 'b': ('string', 'Unicode string'), 'c': None}
+#[1, 2, 3, <Recursion on list with id=78805992>]
 
 #---------------------------------
 
