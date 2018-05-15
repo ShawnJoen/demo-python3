@@ -931,6 +931,75 @@ pkl_file.close()
 #{'a': [1, 2.0, 3, (4+6j)], 'b': ('string', 'Unicode string'), 'c': None}
 #[1, 2, 3, <Recursion on list with id=78805992>]
 
+#---------------------------------错误和异常
+print ("错误和异常")
+# while True:
+#     try:
+#         x = int(input("Please enter a number: "))
+#         #break #有break语句时无出错误会终结脚本, 或无加时循环执行try
+#     except ValueError: #抓取值错误Error 如果一个异常没有与任何的except匹配，将会传递给上层的try中
+#         print("Oops!  That was no valid number.  Try again   ")
+#         pass
+#     except (RuntimeError, TypeError, NameError):#可以同时处理多个异常
+#         pass
+#     except: #最后一个except子句可以忽略异常的名称 - 打印一个错误信息
+#         print("Unexpected error:", sys.exc_info()[0])#Unexpected error: <class 'ValueError'>
+#         raise
+
+for arg in [1]:
+    try:
+        f = open('./foo.txt', 'r')
+    except IOError:
+        print('cannot open', arg)
+    else: # 必须放在所有的except子句之后。这个子句将在try子句没有发生任何异常的时候执行
+        print(arg, 'has', len(f.readlines()), 'lines')#1 has 2 lines
+        f.close()
+
+def this_fails():
+    x = 1/0
+try:
+    this_fails()
+except ZeroDivisionError as err:
+    print('Handling run-time error:', err)
+#简单抛出一个异常 raise
+#raise NameError('HiThere') #raise 唯一的一个参数指定了要被抛出的异常。它必须是一个异常的实例或者是异常的类（也就是 Exception 的子类）
+
+def divide(x, y):
+    try:
+        result = x / y
+    except ZeroDivisionError:
+        print("--division by zero!")
+    else:
+        print("--result is", result)
+    finally:#有没有发生异常，finally 子句都会执行
+        print("--executing finally clause")
+divide(2, 1)#--result is 2.0
+#--executing finally clause
+divide(2, 0)#--division by zero!
+#--executing finally clause
+#关键词 with 语句就可以保证诸如文件之类的对象在使用完之后一定会正确的执行他的清理方法
+#执行完毕后 内部会关闭文件
+with open("foo.txt") as f:
+    for line in f:
+        print(line, end="")
+#Shawn
+#123
 #---------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
