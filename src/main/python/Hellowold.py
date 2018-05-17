@@ -984,9 +984,104 @@ with open("foo.txt") as f:
         print(line, end="")
 #Shawn
 #123
+#---------------------------------面向对象 Class
+#self代表类的实例，而非类
+#普通的函数只有一个特别的区别——它们必须有一个额外的第一个参数名称, 按照惯例它的名称是 self
+#self 的名字并不是规定死的，也可以使用 this，但是最好还是按照约定是用 self
+#__private_attrs：两个下划线开头，声明该属性为私有
+#__private_method：两个下划线开头，声明该方法为私有方法
+# 类的专有方法：
+# __init__ : 构造函数，在生成对象时调用
+# __del__ : 析构函数，释放对象时使用
+# __repr__ : 打印，转换
+# __setitem__ : 按照索引赋值
+# __getitem__: 按照索引获取值
+# __len__: 获得长度
+# __cmp__: 比较运算
+# __call__: 函数调用
+# __add__: 加运算
+# __sub__: 减运算
+# __mul__: 乘运算
+# __div__: 除运算
+# __mod__: 求余运算
+# __pow__: 乘方
+class people:
+    #定义基本属性
+    name = ''
+    age = 0
+    #定义私有属性,私有属性在类外部无法直接进行访问
+    __weight = 0
+    #定义构造方法
+    def __init__(self,n,a,w): #构造方法
+        self.name = n
+        self.age = a
+        self.__weight = w
+    def func(shawn): #self 不是 python 关键字，可以换成 shawn
+        print(shawn)#<__main__.Test object at 0x0529F870> 类的实例
+        print(shawn.__class__)#<class '__main__.Test'> 指向类
+    def speak(self):
+        print("%s 说: 我 %d 岁。" %(self.name,self.age))#shawn 说: 我 33 岁。
+t = people('shawn',33, 80)
+t.func()
+t.speak()
+
+#单继承示例
+class student(people):
+    grade = ''
+    def __init__(self,n,a,w,g):
+        #调用父类的构函
+        people.__init__(self,n,a,w)
+        self.grade = g
+    #覆写父类的方法
+    def speak(self):
+        print("%s 说: 我 %d 岁了，我在读 %d 年级"%(self.name,self.age,self.grade))#ken 说: 我 10 岁了，我在读 3 年级
+s = student('ken',10, 60, 3)
+s.speak()
+super(student,s).speak()#ken 说: 我 10 岁。 - 直接调用student的父级people的speak(用子类对象调用父类已被覆盖的方法)
+
+#另一个类，多重继承之前的准备
+class speaker():
+    topic = ''
+    name = ''
+    def __init__(self,n,t):
+        self.name = n
+        self.topic = t
+    def speak(self):
+        print("我叫 %s，我是一个演说家，我演讲的主题是 %s"%(self.name,self.topic))
+
+#多重继承
+class sample(speaker,student):
+    a =''
+    def __init__(self,n,a,w,g,t):
+        student.__init__(self,n,a,w,g)
+        speaker.__init__(self,n,t)
+    def __foo(self):          # 私有方法
+        print('这是私有方法')
+
+    def foo(self):            # 公共方法
+        print('这是公共方法')
+        self.__foo()
+test = sample("Tim",25,80,4,"Python")
+test.speak()   #方法名同，默认调用的是在括号中排前地父类的方法
+#我叫 Tim，我是一个演说家，我演讲的主题是 Python
+test.foo()
+#这是公共方法
+#这是私有方法
+
+#运算符重载
+class Vector:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+    def __str__(self):#和 JAVA Class中 toString()方法是 相同的功能
+        return 'Vector (%d, %d)' % (self.a, self.b)
+    def __add__(self,other):#运算符重载
+        return Vector(self.a + other.a, self.b + other.b)
+v1 = Vector(2,10)
+v2 = Vector(5,-2)
+print (v1 + v2)
+
 #---------------------------------
-
-
 
 
 
