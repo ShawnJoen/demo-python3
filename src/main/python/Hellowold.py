@@ -86,6 +86,11 @@ else:
 # pi	数学常量 pi（圆周率，一般以π来表示）
 # e	数学常量 e，e即自然常数（自然常数）。
 
+import math
+#math模块为浮点运算提供了对底层C函数库的访问
+print (math.cos(math.pi / 4)) #0.7071067811865476
+print (math.log(1024, 2))#10.0
+
 #数据类型是不允许改变
 aNumber, bNumber, cNumber, dNumber = 20, 5.5, True, 4+3j
 print(type(aNumber), type(bNumber), type(cNumber), type(dNumber))#判断数据类型
@@ -121,6 +126,7 @@ import random
 print ("从 range(100) 返回一个随机数 : ",random.choice(range(100)))
 print ("从列表中 [1, 2, 3, 5, 9]) 返回一个随机元素 : ", random.choice([1, 2, 3, 5, 9]))
 print ("从字符串中 'Shawn' 返回一个随机字符 : ", random.choice('Shawn'))
+print (random.choice(['apple', 'pear', 'banana']))
 print (" 从 1-100 中选取一个奇数 randrange(1,100, 2) : ", random.randrange(1, 100, 2))
 print ("从 0-99 选取一个随机数 randrange(100) : ", random.randrange(100))
 print ("[0,1)范围内 random() : ", random.random()) #0.3848253248722716
@@ -139,7 +145,7 @@ random.shuffle(list)
 print ("随机排序列表 : ",  list)
 print ("uniform(5, 10) 的随机浮点数 : ",  random.uniform(5, 10))#8.32548129941273
 print ("uniform(7, 14) 的随机浮点数 : ",  random.uniform(7, 14))#11.50216637642797
-
+print (random.sample(range(100), 10))#[21, 6, 32, 25, 68, 48, 94, 18, 22, 97]
 #---------------------------------平方根
 #--适用于正数
 #num3 = float(input('请输入一个数字： '))#10.2
@@ -1081,9 +1087,53 @@ v1 = Vector(2,10)
 v2 = Vector(5,-2)
 print (v1 + v2)
 
+#---------------------------------操作系统接口
+import os
+#返回当前的工作目录
+print (os.getcwd())#D:\xampp\htdocs\java\shawn\demo-python3\src\main\python
+#执行系统命令 mkdir
+#print (os.system('mkdir new_folder'))#1
+#修改当前的工作目录
+#print (os.chdir('D:/xampp/htdocs/java/shawn/demo-python3/src/main/python/new_folder'))#None
+#返回当前的工作目录re.
+#print (os.system('mkdir new_folder2'))#0
+import glob #lob模块提供了一个函数用于从目录通配符搜索中生成文件列表
+print (glob.glob('*.py'))#['Hellowold.py']
+#命令行参数
+print(sys.argv)#['D:/xampp/htdocs/java/shawn/demo-python3/src/main/python/Hellowold.py']
+#sys 还有 stdin，stdout 和 stderr 属性，即使在 stdout 被重定向时，后者也可以用于显示警告和错误信息
+sys.stderr.write('Warning, log file not found starting a new one\n')
+#Warning, log file not found starting a new one
+#脚本的定向终止
+#sys.exit()
+#访问 互联网 以及处理网络通信协议
+#从 urls 接收的数据的 urllib.request 以及用于发送电子邮件的 smtplib
+
+#日期和时间
+from datetime import date
+now = date.today()
+print (now)#2018-05-20
+print (now.strftime("%m-%d-%y. %d %b %Y is a %A on the %d day of %B."))
+#05-20-18. 20 May 2018 is a Sunday on the 20 day of May.
+birthday = date(1964, 7, 31)
+print (birthday) #1964-07-31
+age = now - birthday
+print (age) #19651 days, 0:00:00
+print (age.days) #19651
+
+#数据压缩
+import zlib
+s = b'witch which has which witches wrist watch'
+print (len(s))#41
+t = zlib.compress(s)
+print (len(t))#37
+print (zlib.decompress(t))#b'witch which has which witches wrist watch'
+print (zlib.crc32(s))#226805979
+
+
+
+
 #---------------------------------
-
-
 
 
 
