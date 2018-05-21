@@ -1130,14 +1130,89 @@ print (len(t))#37
 print (zlib.decompress(t))#b'witch which has which witches wrist watch'
 print (zlib.crc32(s))#226805979
 
+#---------------------------------多线程
+#常用的两个模块为 thread(已被废弃) 重命名为_thread, threading(推荐使用)
+#_thread 模块中的start_new_thread()函数来产生新线程
+    # function - 线程函数。
+    # args - 传递给线程函数的参数,他必须是个tuple类型。
+    # kwargs - 可选参数
+import _thread
+import time
+# 为线程定义一个函数
+# def print_time( threadName, delay):
+#     count = 0
+#     while count < 5:
+#         time.sleep(delay)
+#         count += 1
+#         print ("%s: %s" % ( threadName, time.ctime(time.time()) ))
+# try: # 创建两个线程
+#     _thread.start_new_thread( print_time, ("Thread-1", 1, ) )
+#     _thread.start_new_thread( print_time, ("Thread-2", 1, ) )
+# except:
+#     print ("Error: 无法启动线程")
+# while 1:
+#     pass
+#Thread类提供了以下方法:
+# run(): 用以表示线程活动的方法。
+# start():启动线程活动。
+# join([time]): 等待至线程中止。这阻塞调用线程直至线程的join() 方法被调用中止-正常退出或者抛出未处理的异常-或者是可选的超时发生。
+# isAlive(): 返回线程是否活动的。
+# getName(): 返回线程名。
+# setName(): 设置线程名。
 
-
+#线程模块
+#threading 模块除了包含 _thread 模块中的所有方法外，还提供的其他方法：
+#threading.currentThread(): 返回当前的线程变量
+#threading.enumerate(): 返回一个包含正在运行的线程的list。正在运行指线程启动后、结束前，不包括启动前和终止后的线程
+#threading.activeCount(): 返回正在运行的线程数量，与len(threading.enumerate())有相同的结果
+#使用 threading 模块创建线程
+#我们可以通过直接从 threading.Thread 继承创建一个新的子类，并实例化后调用 start() 方法启动新线程
+import threading
+import time
+exitFlag = 0
+class myThread (threading.Thread):
+    def __init__(self, threadID, name, counter):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+        self.counter = counter
+    def run(self):
+        print ("开始线程：" + self.name)
+        print_time(self.name, self.counter, 5)
+        print ("退出线程：" + self.name)
+def print_time(threadName, delay, counter):
+    while counter:
+        if exitFlag:
+            threadName.exit()
+        time.sleep(delay)
+        print ("%s: %s" % (threadName, time.ctime(time.time())))
+        counter -= 1
+# 创建新线程
+thread1 = myThread(1, "Thread-1", 1)
+thread2 = myThread(2, "Thread-2", 2)
+# 开启新线程
+thread1.start()
+thread2.start()
+thread1.join()#等待至线程中止。这阻塞调用线程直至线程的join() 方法被调用中止-正常退出或者抛出未处理的异常-或者是可选的超时发生
+thread2.join()#
+print ("退出主线程")
+# 开始线程：Thread-1
+# 开始线程：Thread-2
+# Thread-1: Mon May 21 22:42:25 2018
+# Thread-2: Mon May 21 22:42:26 2018
+# Thread-1: Mon May 21 22:42:26 2018
+# Thread-1: Mon May 21 22:42:27 2018
+# Thread-1: Mon May 21 22:42:28 2018
+# Thread-2: Mon May 21 22:42:28 2018
+# Thread-1: Mon May 21 22:42:29 2018
+# 退出线程：Thread-1
+# Thread-2: Mon May 21 22:42:30 2018
+# Thread-2: Mon May 21 22:42:32 2018
+# Thread-2: Mon May 21 22:42:34 2018
+# 退出线程：Thread-2
+# 退出主线程
 
 #---------------------------------
-
-
-
-
 
 
 
