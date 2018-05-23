@@ -1275,56 +1275,56 @@ import time
     # Queue.put_nowait(item) 相当Queue.put(item, False)
     # Queue.task_done() 在完成一项工作之后，Queue.task_done()函数向任务已经完成的队列发送一个信号
     # Queue.join() 实际上意味着等到队列为空，再执行别的操作
-import queue
-import threading
-import time
-exitFlag = 0
-class myThread (threading.Thread):
-    def __init__(self, threadID, name, q):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.name = name
-        self.q = q
-    def run(self):
-        print ("开启线程：" + self.name)
-        process_data(self.name, self.q)
-        print ("退出线程：" + self.name)
-def process_data(threadName, q):
-    while not exitFlag:
-        queueLock.acquire()
-        if not workQueue.empty():
-            data = q.get()
-            queueLock.release()
-            print ("%s processing %s" % (threadName, data))
-        else:
-            queueLock.release()
-        time.sleep(1)
-threadList = ["Thread-1", "Thread-2", "Thread-3"]
-nameList = ["One", "Two", "Three", "Four", "Five"]
-queueLock = threading.Lock()
-workQueue = queue.Queue(10)
-threads = []
-threadID = 1
-# 创建新线程
-for tName in threadList:
-    thread = myThread(threadID, tName, workQueue)
-    thread.start()
-    threads.append(thread)
-    threadID += 1
-# 填充队列
-queueLock.acquire()
-for word in nameList:
-    workQueue.put(word)
-queueLock.release()
-# 等待队列清空
-while not workQueue.empty():
-    pass
-# 通知线程是时候退出
-exitFlag = 1
-# 等待所有线程完成
-for t in threads:
-    t.join()
-print ("退出主线程")
+# import queue
+# import threading
+# import time
+# exitFlag = 0
+# class myThread (threading.Thread):
+#     def __init__(self, threadID, name, q):
+#         threading.Thread.__init__(self)
+#         self.threadID = threadID
+#         self.name = name
+#         self.q = q
+#     def run(self):
+#         print ("开启线程：" + self.name)
+#         process_data(self.name, self.q)
+#         print ("退出线程：" + self.name)
+# def process_data(threadName, q):
+#     while not exitFlag:
+#         queueLock.acquire()
+#         if not workQueue.empty():
+#             data = q.get()
+#             queueLock.release()
+#             print ("%s processing %s" % (threadName, data))
+#         else:
+#             queueLock.release()
+#         time.sleep(1)
+# threadList = ["Thread-1", "Thread-2", "Thread-3"]
+# nameList = ["One", "Two", "Three", "Four", "Five"]
+# queueLock = threading.Lock()
+# workQueue = queue.Queue(10)
+# threads = []
+# threadID = 1
+# # 创建新线程
+# for tName in threadList:
+#     thread = myThread(threadID, tName, workQueue)
+#     thread.start()
+#     threads.append(thread)
+#     threadID += 1
+# # 填充队列
+# queueLock.acquire()
+# for word in nameList:
+#     workQueue.put(word)
+# queueLock.release()
+# # 等待队列清空
+# while not workQueue.empty():
+#     pass
+# # 通知线程是时候退出
+# exitFlag = 1
+# # 等待所有线程完成
+# for t in threads:
+#     t.join()
+# print ("退出主线程")
 # 开启线程：Thread-1
 # 开启线程：Thread-2
 # 开启线程：Thread-3
@@ -1338,9 +1338,137 @@ print ("退出主线程")
 # 退出线程：Thread-1
 # 退出主线程
 
+#---------------------------------XML解析
+#有三种方法解析XML，SAX，DOM，以及ElementTree
+#标准库包含SAX解析器 SAX (simple API for XML )
+#sax方式处理xml要先引入xml.sax中的parse函数，还有xml.sax.handler中的ContentHandler
+# startDocument()方法 文档启动的时候调用。
+# endDocument()方法 解析器到达文档结尾时调用。
+# startElement(name, attrs)方法 遇到XML开始标签时调用，name是标签的名字，attrs是标签的属性值字典。
+# endElement(name)方法 遇到XML结束标签时调用。
+
+# xml.sax.make_parser( [parser_list] ) 创建一个新的解析器对象并返回
+# 参数说明: parser_list - 可选参数，解析器列表
+
+# xml.sax.parse( xmlfile, contenthandler[, errorhandler]) 创建一个 SAX 解析器并解析xml文档
+# 参数说明:
+# xmlfile - xml文件名
+# contenthandler - 必须是一个ContentHandler的对象
+# errorhandler - 如果指定该参数，errorhandler必须是一个SAX ErrorHandler对象
+
+# xml.sax.parseString(xmlstring, contenthandler[, errorhandler])创建一个XML解析器并解析xml字符串
+# 参数说明:
+# xmlstring - xml字符串
+# contenthandler - 必须是一个ContentHandler的对象
+# errorhandler - 如果指定该参数，errorhandler必须是一个SAX ErrorHandler对象
+import xml.sax
+class MovieHandler( xml.sax.ContentHandler ):
+    def __init__(self):
+        self.CurrentData = ""
+        self.type = ""
+        self.format = ""
+        self.year = ""
+    # 元素开始调用
+    def startElement(self, tag, attributes):
+        self.CurrentData = tag
+        if tag == "movie":
+            print ("*****Movie*****")
+            title = attributes["title"]
+            print ("Title:", title)
+    # 元素结束调用
+    def endElement(self, tag):
+        if self.CurrentData == "type":
+            print ("Type:", self.type)
+        elif self.CurrentData == "format":
+            print ("Format:", self.format)
+        elif self.CurrentData == "year":
+            print ("Year:", self.year)
+        self.CurrentData = ""
+    # 读取字符时调用
+    def characters(self, content):
+        if self.CurrentData == "type":
+            self.type = content
+        elif self.CurrentData == "format":
+            self.format = content
+        elif self.CurrentData == "year":
+            self.year = content
+if ( __name__ == "__main__"):
+    # 创建一个 XMLReader
+    parser = xml.sax.make_parser()
+    # 关闭命名空间
+    parser.setFeature(xml.sax.handler.feature_namespaces, 0)
+    # 重写 ContextHandler
+    Handler = MovieHandler()
+    parser.setContentHandler( Handler )
+    parser.parse("movies.xml")
+# *****Movie*****
+# Title: Enemy Behind
+# Type: War, Thriller
+# Format: DVD
+# Year: 2003
+# *****Movie*****
+# Title: Transformers
+# Type: Anime, Science Fiction
+# Format: DVD
+# Year: 1989
+# *****Movie*****
+# Title: Trigun
+# Type: Anime, Action
+# Format: DVD
+# *****Movie*****
+# Title: Ishtar
+# Type: Comedy
+# Format: VHS
+print ("xml.dom解析xml")
+#xml.dom解析xml
+from xml.dom.minidom import parse
+import xml.dom.minidom
+# 使用minidom解析器打开 XML 文档
+DOMTree = xml.dom.minidom.parse("movies.xml")
+collection = DOMTree.documentElement
+if collection.hasAttribute("shelf"):
+    print ("Root element : %s" % collection.getAttribute("shelf"))
+# 在集合中获取所有电影
+movies = collection.getElementsByTagName("movie")
+# 打印每部电影的详细信息
+for movie in movies:
+    print ("*****Movie*****")
+    if movie.hasAttribute("title"):
+        print ("Title: %s" % movie.getAttribute("title"))
+    type = movie.getElementsByTagName('type')[0]
+    print ("Type: %s" % type.childNodes[0].data)
+    format = movie.getElementsByTagName('format')[0]
+    print ("Format: %s" % format.childNodes[0].data)
+    rating = movie.getElementsByTagName('rating')[0]
+    print ("Rating: %s" % rating.childNodes[0].data)
+    description = movie.getElementsByTagName('description')[0]
+    print ("Description: %s" % description.childNodes[0].data)
+# Root element : New Arrivals
+# *****Movie*****
+# Title: Enemy Behind
+# Type: War, Thriller
+# Format: DVD
+# Rating: PG
+# Description: Talk about a US-Japan war
+# *****Movie*****
+# Title: Transformers
+# Type: Anime, Science Fiction
+# Format: DVD
+# Rating: R
+# Description: A schientific fiction
+# *****Movie*****
+# Title: Trigun
+# Type: Anime, Action
+# Format: DVD
+# Rating: PG
+# Description: Vash the Stampede!
+# *****Movie*****
+# Title: Ishtar
+# Type: Comedy
+# Format: VHS
+# Rating: PG
+# Description: Viewable boredom
 #---------------------------------
-
-
 
 
 
