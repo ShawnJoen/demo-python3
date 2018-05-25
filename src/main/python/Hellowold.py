@@ -1109,18 +1109,6 @@ sys.stderr.write('Warning, log file not found starting a new one\n')
 #访问 互联网 以及处理网络通信协议
 #从 urls 接收的数据的 urllib.request 以及用于发送电子邮件的 smtplib
 
-#日期和时间
-from datetime import date
-now = date.today()
-print (now)#2018-05-20
-print (now.strftime("%m-%d-%y. %d %b %Y is a %A on the %d day of %B."))
-#05-20-18. 20 May 2018 is a Sunday on the 20 day of May.
-birthday = date(1964, 7, 31)
-print (birthday) #1964-07-31
-age = now - birthday
-print (age) #19651 days, 0:00:00
-print (age.days) #19651
-
 #数据压缩
 import zlib
 s = b'witch which has which witches wrist watch'
@@ -1517,9 +1505,89 @@ print ("data2['url']: ", data2['url'])#data2['url']:  http://www.Shawn.com
 # with open('data.json', 'r') as f:
 #     data = json.load(f)
 
+#---------------------------------日期和时间
+
+from datetime import date
+now = date.today()
+print (now)#2018-05-20
+print (now.strftime("%m-%d-%y. %d %b %Y is a %A on the %d day of %B."))
+#05-20-18. 20 May 2018 is a Sunday on the 20 day of May.
+birthday = date(1964, 7, 31)
+print (birthday) #1964-07-31
+age = now - birthday
+print (age) #19651 days, 0:00:00
+print (age.days) #19651
+
+import time
+ticks = time.time()
+print ("当前时间戳为:", ticks)#当前时间戳为: 1527171285.2309587
+
+#获取当前时间
+localtime = time.localtime(time.time())
+print ("本地时间为 :", localtime)
+#本地时间为 : time.struct_time(tm_year=2018, tm_mon=5, tm_mday=24, tm_hour=22, tm_min=30, tm_sec=23,
+    # tm_wday=3, tm_yday=144, tm_isdst=0)
+# 属性	    值
+# tm_year	    2008
+# tm_mon	    1 到 12
+# tm_mday	    1 到 31
+# tm_hour	    0 到 23
+# tm_min	    0 到 59
+# tm_sec	    0 到 61 (60或61 是闰秒)
+# tm_wday	    0到6 (0是周一)
+# tm_yday	    一年中的第几天，1 到 366
+# tm_isdst	是否为夏令时，值有：1(夏令时)、0(不是夏令时)、-1(未知)，默认 -1
+
+#最简单的获取可读的时间模式的函数是asctime()
+localtime = time.asctime( time.localtime(time.time()) )
+print ("本地时间为 :", localtime)#本地时间为 : Thu May 24 22:32:36 2018
+
+#格式化日期
+# 格式化成2016-03-20 11:45:39形式
+print (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))#2018-05-24 22:33:26
+# 格式化成Sat Mar 28 22:24:24 2016形式
+print (time.strftime("%a %b %d %H:%M:%S %Y", time.localtime()))#Thu May 24 22:33:26 2018
+# 将格式字符串转换为时间戳
+a = "Sat Mar 28 22:24:24 2016"
+print (time.mktime(time.strptime(a,"%a %b %d %H:%M:%S %Y")))#1459175064.0
+
+#python中时间日期格式化符号：
+# %y 两位数的年份表示（00-99）
+# %Y 四位数的年份表示（000-9999）
+# %m 月份（01-12）
+# %d 月内中的一天（0-31）
+# %H 24小时制小时数（0-23）
+# %I 12小时制小时数（01-12）
+# %M 分钟数（00=59）
+# %S 秒（00-59）
+# %a 本地简化星期名称
+# %A 本地完整星期名称
+# %b 本地简化的月份名称
+# %B 本地完整的月份名称
+# %c 本地相应的日期表示和时间表示
+# %j 年内的一天（001-366）
+# %p 本地A.M.或P.M.的等价符
+# %U 一年中的星期数（00-53）星期天为星期的开始
+# %w 星期（0-6），星期天为星期的开始
+# %W 一年中的星期数（00-53）星期一为星期的开始
+# %x 本地相应的日期表示
+# %X 本地相应的时间表示
+# %Z 当前时区的名称
+# %% %号本身
+
+#获取某月日历
+import calendar
+cal = calendar.month(2016, 1)
+print ("以下输出2016年1月份的日历:")
+print (cal)
+# January 2016
+# Mo Tu We Th Fr Sa Su
+# 1  2  3
+# 4  5  6  7  8  9 10
+# 11 12 13 14 15 16 17
+# 18 19 20 21 22 23 24
+# 25 26 27 28 29 30 31
+
 
 #---------------------------------
-
-
-
 
