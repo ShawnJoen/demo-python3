@@ -1588,6 +1588,156 @@ print (cal)
 # 18 19 20 21 22 23 24
 # 25 26 27 28 29 30 31
 
+#---------------------------------MySQL 数据库连接
+#Python3.x使用PyMySQL连接 MySQL ，Python2中则使用mysqldb
+#PyMySQL 遵循 Python 数据库 API v2.0 规范，并包含了 pure-Python MySQL 客户端库
+#PyMySQL 安装 下载地址：https://github.com/PyMySQL/PyMySQL 注意：请确保您有root权限来安装
+#pip install PyMySQL
+# 或者
+# $ git clone https://github.com/PyMySQL/PyMySQL
+# $ cd PyMySQL/
+# $ python3 setup.py install
+# 或者 制定版本号，可以使用 curl 命令来安装
+# $ # X.X 为 PyMySQL 的版本号
+# $ curl -L https://github.com/PyMySQL/PyMySQL/tarball/pymysql-X.X | tar xz
+# $ cd PyMySQL*
+# $ python3 setup.py install
+# 安装的过程中可能会出现"ImportError: No module named setuptools"的错误提示，意思是你没有安装setuptools，
+# 你可以访问https://pypi.python.org/pypi/setuptools 找到各个系统的安装方法。
+# $ wget https://bootstrap.pypa.io/ez_setup.py
+# $ python3 ez_setup.py
+
+#数据库连接
+import pymysql
+db = pymysql.connect("localhost","root","","test" )# 打开数据库连接
+cursor = db.cursor()# 使用 cursor() 方法创建一个游标对象 cursor
+cursor.execute("SELECT VERSION()")# 使用 execute()  方法执行 SQL 查询
+data = cursor.fetchone()# 使用 fetchone() 方法获取单条数据.
+print ("Database version : %s " % data)#Database version : 10.1.13-MariaDB
+db.close()# 关闭数据库连接
+
+#创建数据库表 - 使用execute()方法来为数据库创建表
+db = pymysql.connect("localhost","root","","test" )# 打开数据库连接
+cursor = db.cursor()# 使用 cursor() 方法创建一个游标对象 cursor
+cursor.execute("DROP TABLE IF EXISTS `test_table`")# 使用 execute() 方法执行 SQL，如果表存在则删除
+# 使用预处理语句创建表
+sql = """CREATE TABLE `test_table`(
+			id bigint unsigned primary key auto_increment,
+			name varchar(64) not null default '',
+			pw char(32) not null default ''
+		)engine=myisam charset=utf8"""
+cursor.execute(sql)
+db.close()# 关闭数据库连接
+
+#数据库插入操作
+db = pymysql.connect("localhost","root","","test" )# 打开数据库连接
+cursor = db.cursor()# 使用 cursor() 方法创建一个游标对象 cursor
+# SQL 插入语句
+sql1 = """INSERT INTO `test_table`(`name`, `pw`)
+         VALUES ('shawn1', '33')"""
+sql2 = "INSERT INTO `test_table`(`name`, `pw`) \
+       VALUES ('%s', '%s')" % \
+      ('shawn2', 'pw')
+try:
+    cursor.execute(sql1)# 执行sql语句
+    cursor.execute(sql2)# 执行sql语句
+    db.commit()# 提交到数据库执行
+except:
+    db.rollback()# 如果发生错误则回滚
+db.close()# 关闭数据库连接
+
+#数据库查询操作
+# fetchone(): 该方法获取下一个查询结果集。结果集是一个对象
+# fetchall(): 接收全部的返回结果行
+# rowcount: 这是一个只读属性，并返回执行execute()方法后影响的行数
+db = pymysql.connect("localhost","root","","test" )# 打开数据库连接
+cursor = db.cursor()# 使用 cursor() 方法创建一个游标对象 cursor
+# SQL 查询语句
+sql = "SELECT * FROM `test_table` \
+       WHERE `name` ='%s'" % ('shawn1')
+try:
+    # 执行SQL语句
+    cursor.execute(sql)
+    # 获取所有记录列表
+    results = cursor.fetchall()
+    for row in results:
+        id = row[0]
+        name = row[1]
+        pw = row[2]
+        # 打印结果
+        print ("id=%d,name=%s,pw=%s" % \
+               (id, name, pw))
+except:
+    print ("Error: unable to fetch data")
+db.close()# 关闭数据库连接
+#id=1,name=shawn1,pw=33
+
+#数据库更新操作
+db = pymysql.connect("localhost","root","","test" )# 打开数据库连接
+cursor = db.cursor()# 使用 cursor() 方法创建一个游标对象 cursor
+# SQL 更新语句
+sql = "UPDATE `test_table` SET pw='pw***' WHERE `name` like '%s'" % ('shawn%')
+try:
+    print (cursor.execute(sql))# 执行SQL语句
+    db.commit()# 提交到数据库执行
+except:
+    db.rollback()
+db.close()# 关闭数据库连接
+#2 输出更新行个数, 更新了两条行
+
+#删除操作
+db = pymysql.connect("localhost","root","","test" )# 打开数据库连接
+cursor = db.cursor()# 使用 cursor() 方法创建一个游标对象 cursor
+# SQL 删除语句
+sql = "DELETE FROM `test_table` WHERE `name` like '%s'" % ('shawn2')
+try:
+    print (cursor.execute(sql))# 执行SQL语句
+    db.commit()# 提交修改
+except:
+    db.rollback()
+db.close()# 关闭连接
+#1 输出删除行个数, 删除了一条行
+
+#执行事务
+# 原子性（atomicity）。一个事务是一个不可分割的工作单位，事务中包括的诸操作要么都做，要么都不做。
+# 一致性（consistency）。事务必须是使数据库从一个一致性状态变到另一个一致性状态。一致性与原子性是密切相关的。
+# 隔离性（isolation）。一个事务的执行不能被其他事务干扰。即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，
+#         并发执行的各个事务之间不能互相干扰。
+# 持久性（durability）。持续性也称永久性（permanence），指一个事务一旦提交，它对数据库中数据的改变就应该是永久性的。
+#         接下来的其他操作或故障不应该对其有任何影响
+
+# 错误处理
+# DB API中定义了一些数据库操作的错误及异常，下表列出了这些错误和异常:
+# 异常	描述
+# Warning	当有严重警告时触发，例如插入数据是被截断等等。必须是 StandardError 的子类。
+# Error	警告以外所有其他错误类。必须是 StandardError 的子类。
+# InterfaceError	当有数据库接口模块本身的错误（而不是数据库的错误）发生时触发。 必须是Error的子类。
+# DatabaseError	和数据库有关的错误发生时触发。 必须是Error的子类。
+# DataError	当有数据处理时的错误发生时触发，例如：除零错误，数据超范围等等。 必须是DatabaseError的子类。
+# OperationalError	指非用户控制的，而是操作数据库时发生的错误。例如：连接意外断开、 数据库名未找到、事务处理失败、
+#                   内存分配错误等等操作数据库是发生的错误。 必须是DatabaseError的子类。
+# IntegrityError	完整性相关的错误，例如外键检查失败等。必须是DatabaseError子类。
+# InternalError	数据库的内部错误，例如游标（cursor）失效了、事务同步失败等等。 必须是DatabaseError子类。
+# ProgrammingError	程序错误，例如数据表（table）没找到或已存在、SQL语句语法错误、 参数数量错误等等。必须是DatabaseError的子类。
+# NotSupportedError	不支持错误，指使用了数据库不支持的函数或API等。例如在连接对象上 使用.rollback()函数，然而数据库并不支持事务或者事务已关闭。
+#                   必须是DatabaseError的子类。
+
+
+#---------------------------------CGI编程
+#CGI(Common Gateway Interface),通用网关接口,它是一段程序,运行在服务器上如：HTTP服务器，提供同客户端HTML页面的接口
 
 #---------------------------------
+#---------------------------------网络编程
+# Python 提供了两个级别访问的网络服务：
+# 低级别的网络服务支持基本的 Socket，它提供了标准的 BSD Sockets API，可以访问底层操作系统Socket接口的全部方法
+# 高级别的网络服务模块 SocketServer， 它提供了服务器中心类，可以简化网络服务器的开发
+
+#---------------------------------
+
+
+
+
+
+
+
 
